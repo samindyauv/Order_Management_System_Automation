@@ -60,4 +60,22 @@ public class User extends baseTest {
         webSteps.click("SearchUser_SearchButton");
         Assert.assertEquals("Kasun Bandara",webSteps.getText("SearchUser_Result"), "Passed");
     }
+
+    @Test(priority = 3)
+    public void searchUserUsingRole() throws InterruptedException, AWTException {
+        extentReportManager.startTest("User Functionality", "<b>Search User Using Role</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC01: Verify that the user can search a user using user's role</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click User " +
+                "<br>Step 3- Click User List" +
+                "<br>Step 4- Select Role from 'Search By' dropdown " +
+                "<br>Step 5- Type in Search" +
+                "<br>Step 6- Click Search"
+        );
+        webSteps.select("SearchUser_SearchByDropdown",1,1);
+        webSteps.type("Admin","SearchUser_SearchBar");
+        webSteps.click("SearchUser_SearchButton");
+        Assert.assertEquals("Admin",webSteps.getText("SearchUser_Result2"), "Passed");
+    }
 }
