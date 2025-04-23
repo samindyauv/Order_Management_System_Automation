@@ -96,4 +96,22 @@ public class User extends baseTest {
         webSteps.click("SearchUser_SearchButton");
         Assert.assertEquals("kasun@gmail.com",webSteps.getText("SearchUser_Result3"), "Passed");
     }
+
+    @Test(priority = 5)
+    public void searchUserUsingAddress() throws InterruptedException, AWTException {
+        extentReportManager.startTest("User Functionality", "<b>Search User Using Address</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC01: Verify that the user can search a user using user's address</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click User " +
+                "<br>Step 3- Click User List" +
+                "<br>Step 4- Select Address from 'Search By' dropdown " +
+                "<br>Step 5- Type in Search" +
+                "<br>Step 6- Click Search"
+        );
+        webSteps.select("SearchUser_SearchByDropdown",3,1);
+        webSteps.type("Dewalegama,Kegalle","SearchUser_SearchBar");
+        webSteps.click("SearchUser_SearchButton");
+        Assert.assertEquals("Dewalegama,Kegalle",webSteps.getText("SearchUser_Result4"), "Passed");
+    }
 }
