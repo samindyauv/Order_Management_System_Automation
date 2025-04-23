@@ -13,7 +13,7 @@ public class Login extends baseTest {
     public void setUp() throws InterruptedException, IOException {
 
         loadUrl();
-        extentReportManager.startTest("User Login Functionality", "<b>Login with Valid Credentials</b>");
+        extentReportManager.startTest("Login Functionality", "<b>Login with Valid Credentials</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC01: Verify user can log in with valid credentials</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1- Opened the application URL" +

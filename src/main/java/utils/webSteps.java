@@ -3,12 +3,15 @@ package utils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.util.Properties;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.List;
 
 import static dataProviders.repositoryFileReader.constructElement;
 import static dataProviders.repositoryFileReader.findElementRepo;
