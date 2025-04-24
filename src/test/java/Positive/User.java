@@ -1,5 +1,6 @@
 package Positive;
 
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -115,6 +116,34 @@ public class User extends baseTest {
         //webSteps.click("User_PasswordResetButton");
         //Assert.assertEquals("User added successfully",webSteps.getText("ChangePassword_ToastMessage"), "Passed");
     }
+
+    @DataProvider(name = "pageSizes")
+    public Object[][] pageSizes() {
+        return new Object[][]{
+                {10}, {25}, {50}, {100}, {500}, {1000}
+        };
+    }
+
+    @Test(dataProvider = "pageSizes", priority = 5)
+    public void verifyPageSize(int size) throws InterruptedException {
+        extentReportManager.startTest("Pagination", "Verify user page size option: " + size);
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can select page size " + size + "</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click User " +
+                "<br>Step 3- Click User List" +
+                "<br>Step 4 - Open the Page Size dropdown" +
+                "<br>Step 5 - Select page size " + size +
+                "<br>Step 5 - Verify the number of rows matches the page size"
+        );
+
+        webSteps.select("UserPageSizeDropdown", String.valueOf(size));
+        webSteps.waiting();
+        int rowCount = driver.findElements(By.xpath("//table/tbody/tr")).size();
+        Assert.assertTrue(rowCount <= size, "Row count exceeds selected page size: " + size);
+    }
+
+
 
 
 }

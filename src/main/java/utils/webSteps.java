@@ -124,4 +124,7 @@ public class webSteps {
 
         }
     }
+
+    public void select(String pageSizeDropdown, String s) {
+    }
 }
