@@ -74,4 +74,27 @@ public class User extends baseTest {
 
         Assert.assertEquals(inputValue, webSteps.getText(resultLocator), "Search failed for: " + criteriaType);
     }
+
+    @Test(priority = 3)
+    public void editUser() throws InterruptedException, AWTException {
+        extentReportManager.startTest("User Functionality", "<b>Edit User</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit a user</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click User " +
+                "<br>Step 3- Click User List" +
+                "<br>Step 4- Select a User" +
+                "<br>Step 5- Click Edit Action" +
+                "<br>Step 6- Edit Details" +
+                "<br>Step 7- Click 'Update' Button"
+        );
+        webSteps.click("EditUser_Action");
+        webSteps.type("Amal Perera", "AddUser_Name");
+        //webSteps.select("AddUser_Role",5,1);
+        webSteps.type("761234567", "AddUser_ContactNo");
+        webSteps.type("amal@gmail.com", "AddUser_Email");
+        webSteps.type("Kuliyapitiya", "AddUser_Address");
+        //webSteps.click("EditUser_UpdateButton");
+        //Assert.assertEquals("User added successfully",webSteps.getText("AddUser_ToastMessage"), "Passed");
+    }
 }
