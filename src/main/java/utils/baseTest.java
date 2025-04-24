@@ -14,6 +14,7 @@ import org.testng.annotations.BeforeSuite;
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Properties;
 
 // Base class for setting up browser, loading URL, and managing test reports.
@@ -57,6 +58,8 @@ public class baseTest {
             default:
                 throw new RuntimeException("Browser is not supported: " + browser);
         }
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
     }
 
     public void loadUrl() throws InterruptedException, IOException {
@@ -68,7 +71,7 @@ public class baseTest {
         setUpBrowser();
         webSteps = new webSteps(driver);
 
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
         driver.get(baseUrl);
         webSteps.waiting();
     }

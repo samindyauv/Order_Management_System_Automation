@@ -95,6 +95,26 @@ public class User extends baseTest {
         webSteps.type("amal@gmail.com", "AddUser_Email");
         webSteps.type("Kuliyapitiya", "AddUser_Address");
         //webSteps.click("EditUser_UpdateButton");
-        //Assert.assertEquals("User added successfully",webSteps.getText("AddUser_ToastMessage"), "Passed");
+        //Assert.assertEquals("User added successfully",webSteps.getText("EditUser_ToastMessage"), "Passed");
     }
+    @Test(priority = 4)
+    public void changeUserPassword() throws InterruptedException, AWTException {
+        extentReportManager.startTest("User Functionality", "<b>Change User Password</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC04: Verify that the user can successfully change the user password</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click User " +
+                "<br>Step 3- Click User List" +
+                "<br>Step 4- Click 'Password Change' Action" +
+                "<br>Step 6- Enter New Password and Confirm Password" +
+                "<br>Step 7- Click 'Reset' Button"
+        );
+        webSteps.click("UserChangePassword_Action");
+        webSteps.type("9876543210", "User_NewPassword");
+        webSteps.type("9876543210", "User_ConfirmPassword");
+        //webSteps.click("User_PasswordResetButton");
+        //Assert.assertEquals("User added successfully",webSteps.getText("ChangePassword_ToastMessage"), "Passed");
+    }
+
+
 }
