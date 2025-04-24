@@ -2,6 +2,7 @@ package Positive;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utils.baseTest;
 import utils.extentReportManager;
@@ -19,6 +20,7 @@ public class User extends baseTest {
         webSteps.click("ClickUser");
         webSteps.click("ClickUserList");
     }
+
     @Test(priority = 1)
     public void addUser() throws InterruptedException, AWTException {
         extentReportManager.startTest("User Functionality", "<b>Add User</b>");
@@ -30,88 +32,46 @@ public class User extends baseTest {
                 "<br>Step 4- Click 'Add New User' Button" +
                 "<br>Step 5- Fill Primary Details" +
                 "<br>Step 6- Click 'Save' Button"
-                );
+        );
         webSteps.click("ClickAddNewUserButton");
-        webSteps.type("Amal Perera","AddUser_Name");
+        webSteps.type("Amal Perera", "AddUser_Name");
         //webSteps.select("AddUser_Role",5,1);
-        webSteps.type("761234567","AddUser_ContactNo");
-        webSteps.type("amal@gmail.com","AddUser_Email");
-        webSteps.type("Amal@12345","AddUser_Password");
-        webSteps.type("Amal@12345","AddUser_ConfirmPassword");
-        webSteps.type("Kuliyapitiya","AddUser_Address");
+        webSteps.type("761234567", "AddUser_ContactNo");
+        webSteps.type("amal@gmail.com", "AddUser_Email");
+        webSteps.type("Amal@12345", "AddUser_Password");
+        webSteps.type("Amal@12345", "AddUser_ConfirmPassword");
+        webSteps.type("Kuliyapitiya", "AddUser_Address");
         webSteps.click("AddUser_SaveButton");
         //Assert.assertEquals("User added successfully",webSteps.getText("AddUser_ToastMessage"), "Passed");
     }
 
-    @Test(priority = 2)
-    public void searchUserUsingName() throws InterruptedException, AWTException {
-        extentReportManager.startTest("User Functionality", "<b>Search User Using Name</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC01: Verify that the user can search a user using user's name</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
-                "<br>Step 1- Login to the System" +
-                "<br>Step 2- Click User " +
-                "<br>Step 3- Click User List" +
-                "<br>Step 4- Select User from 'Search By' dropdown " +
-                "<br>Step 5- Type in Search" +
-                "<br>Step 6- Click Search"
-        );
-        webSteps.select("SearchUser_SearchByDropdown",2,0);
-        webSteps.type("Kasun Bandara","SearchUser_SearchBar");
-        webSteps.click("SearchUser_SearchButton");
-        Assert.assertEquals("Kasun Bandara",webSteps.getText("SearchUser_Result"), "Passed");
+    @DataProvider(name = "userSearchData")
+    public Object[][] userSearchData() {
+        return new Object[][]{
+                {"Name", 2, 0, "Kasun Bandara", "SearchUser_Result"},
+                {"Role", 1, 1, "Admin", "SearchUser_Result2"},
+                {"Email", 2, 1, "kasun@gmail.com", "SearchUser_Result3"},
+                {"Address", 3, 1, "Dewalegama,Kegalle", "SearchUser_Result4"}
+        };
     }
 
-    @Test(priority = 3)
-    public void searchUserUsingRole() throws InterruptedException, AWTException {
-        extentReportManager.startTest("User Functionality", "<b>Search User Using Role</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC01: Verify that the user can search a user using user's role</b>");
+    @Test(dataProvider = "userSearchData", priority = 2)
+    public void searchUser(String criteriaType, int dropdownValue, int dropdownIndex, String inputValue, String resultLocator) throws InterruptedException, AWTException {
+        extentReportManager.startTest("User Functionality", "<b>Search User Using " + criteriaType + "</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can search by " + criteriaType.toLowerCase() + "</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
-                "<br>Step 1- Login to the System" +
-                "<br>Step 2- Click User " +
-                "<br>Step 3- Click User List" +
-                "<br>Step 4- Select Role from 'Search By' dropdown " +
-                "<br>Step 5- Type in Search" +
-                "<br>Step 6- Click Search"
+                "<br>Step 1 - Login to the System (done once before class)" +
+                "<br>Step 2 - Click User" +
+                "<br>Step 3 - Click User List" +
+                "<br>Step 4 - Select '" + criteriaType + "' from 'Search By' dropdown" +
+                "<br>Step 5 - Enter Search Input" +
+                "<br>Step 6 - Click Search"
         );
-        webSteps.select("SearchUser_SearchByDropdown",1,1);
-        webSteps.type("Admin","SearchUser_SearchBar");
-        webSteps.click("SearchUser_SearchButton");
-        Assert.assertEquals("Admin",webSteps.getText("SearchUser_Result2"), "Passed");
-    }
 
-    @Test(priority = 4)
-    public void searchUserUsingEmail() throws InterruptedException, AWTException {
-        extentReportManager.startTest("User Functionality", "<b>Search User Using Email</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC01: Verify that the user can search a user using user's email</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
-                "<br>Step 1- Login to the System" +
-                "<br>Step 2- Click User " +
-                "<br>Step 3- Click User List" +
-                "<br>Step 4- Select Email from 'Search By' dropdown " +
-                "<br>Step 5- Type in Search" +
-                "<br>Step 6- Click Search"
-        );
-        webSteps.select("SearchUser_SearchByDropdown",2,1);
-        webSteps.type("kasun@gmail.com","SearchUser_SearchBar");
+        webSteps.select("SearchUser_SearchByDropdown", dropdownValue, dropdownIndex);
+        webSteps.type(inputValue, "SearchUser_SearchBar");
         webSteps.click("SearchUser_SearchButton");
-        Assert.assertEquals("kasun@gmail.com",webSteps.getText("SearchUser_Result3"), "Passed");
-    }
 
-    @Test(priority = 5)
-    public void searchUserUsingAddress() throws InterruptedException, AWTException {
-        extentReportManager.startTest("User Functionality", "<b>Search User Using Address</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC01: Verify that the user can search a user using user's address</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
-                "<br>Step 1- Login to the System" +
-                "<br>Step 2- Click User " +
-                "<br>Step 3- Click User List" +
-                "<br>Step 4- Select Address from 'Search By' dropdown " +
-                "<br>Step 5- Type in Search" +
-                "<br>Step 6- Click Search"
-        );
-        webSteps.select("SearchUser_SearchByDropdown",3,1);
-        webSteps.type("Dewalegama,Kegalle","SearchUser_SearchBar");
-        webSteps.click("SearchUser_SearchButton");
-        Assert.assertEquals("Dewalegama,Kegalle",webSteps.getText("SearchUser_Result4"), "Passed");
+        Assert.assertEquals(inputValue, webSteps.getText(resultLocator), "Search failed for: " + criteriaType);
     }
 }

@@ -44,7 +44,15 @@ public class webSteps {
     public void type(String text, String locator) throws InterruptedException {
         By xpath = constructElement(findElementRepo(locator));
         WebElement inputField = driver.findElement(xpath);
-        inputField.clear();
+
+        inputField.click();
+
+        String existingValue = inputField.getAttribute("value");
+        if (existingValue != null && !existingValue.isEmpty()) {
+            inputField.clear();
+            inputField.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+        }
+
         inputField.sendKeys(text);
         waiting();
     }
