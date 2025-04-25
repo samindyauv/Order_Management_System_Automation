@@ -43,7 +43,7 @@ public class User extends baseTest {
         webSteps.type("Amal@12345", "AddUser_ConfirmPassword");
         webSteps.type("Kuliyapitiya", "AddUser_Address");
         webSteps.click("AddUser_SaveButton");
-        //Assert.assertEquals("User added successfully",webSteps.getText("AddUser_ToastMessage"), "Passed");
+        //Assert.assertEquals("User added successfully",webSteps.getText("ToastMessage"), "Passed");
     }
 
     @DataProvider(name = "userSearchData")
@@ -96,8 +96,9 @@ public class User extends baseTest {
         webSteps.type("amal@gmail.com", "AddUser_Email");
         webSteps.type("Kuliyapitiya", "AddUser_Address");
         //webSteps.click("EditUser_UpdateButton");
-        //Assert.assertEquals("User added successfully",webSteps.getText("EditUser_ToastMessage"), "Passed");
+        //Assert.assertEquals("User added successfully",webSteps.getText("ToastMessage"), "Passed");
     }
+
     @Test(priority = 4)
     public void changeUserPassword() throws InterruptedException, AWTException {
         extentReportManager.startTest("User Functionality", "<b>Change User Password</b>");
@@ -111,10 +112,10 @@ public class User extends baseTest {
                 "<br>Step 7- Click 'Reset' Button"
         );
         webSteps.click("UserChangePassword_Action");
-        webSteps.type("9876543210", "User_NewPassword");
-        webSteps.type("9876543210", "User_ConfirmPassword");
-        //webSteps.click("User_PasswordResetButton");
-        //Assert.assertEquals("User added successfully",webSteps.getText("ChangePassword_ToastMessage"), "Passed");
+        webSteps.type("Sami@@1234", "User_NewPassword");
+        webSteps.type("Sami@@1234", "User_ConfirmPassword");
+        webSteps.click("User_PasswordResetButton");
+        Assert.assertEquals("Password changed successfully",webSteps.getText("ToastMessage"), "Passed");
     }
 
     @DataProvider(name = "pageSizes")
@@ -142,8 +143,4 @@ public class User extends baseTest {
         int rowCount = driver.findElements(By.xpath("//table/tbody/tr")).size();
         Assert.assertTrue(rowCount <= size, "Row count exceeds selected page size: " + size);
     }
-
-
-
-
 }
