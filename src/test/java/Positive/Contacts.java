@@ -2,6 +2,7 @@ package Positive;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utils.baseTest;
 import utils.extentReportManager;
@@ -64,5 +65,36 @@ public class Contacts extends baseTest{
         webSteps.type("contact@gmail.com","Contacts_Email");
         //webSteps.click("EditCustomer_UpdateButton");
         //Assert.assertEquals("Contact created successfully",webSteps.getText("ToastMessage"), "Passed");
+    }
+
+    @DataProvider(name = "contactSearchData")
+    public Object[][] contactSearchData() {
+        return new Object[][]{
+                {"Reference ID", 2, 0, "UID12345", "SearchContact_Result"},
+                {"Name", 2, 1, "Kasun Bandara", "SearchContact_Result1"},
+                {"Address", 2, 2, "Dewalegama,Kegalle", "SearchContact_Result2"},
+                {"Contact Number", 2, 3, "0761234567", "SearchContact_Result3"},
+                {"Email", 2, 4, "kasun@gmail.com", "SearchContact_Result4"}
+
+        };
+    }
+
+    @Test(dataProvider = "contactSearchData", priority = 3)
+    public void searchUser(String criteriaType, int dropdownValue, int dropdownIndex, String inputValue, String resultLocator) throws InterruptedException, AWTException {
+        extentReportManager.startTest("Contacts Functionality", "<b>Search Contact Using " + criteriaType + "</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the customer can search by " + criteriaType.toLowerCase() + "</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1 - Login to the System" +
+                "<br>Step 2 - Click Contacts" +
+                "<br>Step 3 - Select '" + criteriaType + "' from 'Search By' dropdown" +
+                "<br>Step 4 - Enter Search Input" +
+                "<br>Step 5 - Click Search"
+        );
+
+        webSteps.select("SearchContact_SearchByDropdown", dropdownValue, dropdownIndex);
+        webSteps.type(inputValue, "SearchContact_SearchBar");
+        webSteps.click("SearchContact_SearchButton");
+
+        Assert.assertEquals(inputValue, webSteps.getText(resultLocator), "Search failed for: " + criteriaType);
     }
 }

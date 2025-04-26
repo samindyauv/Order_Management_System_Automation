@@ -61,7 +61,7 @@ public class User extends baseTest {
         extentReportManager.startTest("User Functionality", "<b>Search User Using " + criteriaType + "</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can search by " + criteriaType.toLowerCase() + "</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
-                "<br>Step 1 - Login to the System (done once before class)" +
+                "<br>Step 1 - Login to the System" +
                 "<br>Step 2 - Click User" +
                 "<br>Step 3 - Click User List" +
                 "<br>Step 4 - Select '" + criteriaType + "' from 'Search By' dropdown" +
