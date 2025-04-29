@@ -38,28 +38,28 @@ public class User extends baseTest {
         webSteps.type("Amal Perera", "AddUser_Name");
         webSteps.click("AddUser_Role");
         webSteps.selectFromDropdown();
-        //webSteps.select("AddUser_Role",5,1);
         webSteps.type("761234567", "AddUser_ContactNo");
         webSteps.type("amal@gmail.com", "AddUser_Email");
         webSteps.type("Amal@12345", "AddUser_Password");
         webSteps.type("Amal@12345", "AddUser_ConfirmPassword");
         webSteps.type("Kuliyapitiya", "AddUser_Address");
-        webSteps.click("AddUser_SaveButton");
+        webSteps.click("SaveButton");
         //Assert.assertEquals("User added successfully",webSteps.getText("ToastMessage"), "Passed");
     }
 
     @DataProvider(name = "userSearchData")
     public Object[][] userSearchData() {
         return new Object[][]{
-                {"Name", 2, 0, "Kasun Bandara", "SearchUser_Result"},
-                {"Role", 1, 1, "Admin", "SearchUser_Result2"},
-                {"Email", 2, 1, "kasun@gmail.com", "SearchUser_Result3"},
-                {"Address", 3, 1, "Dewalegama,Kegalle", "SearchUser_Result4"}
+                {"Name", 2, 0, "Kasun Bandara"},
+                {"Role", 1, 1, "Admin"},
+                {"Email", 2, 1, "kasun@gmail.com"},
+                {"Address", 3, 1, "Dewalegama,Kegalle"}
         };
     }
 
+
     @Test(dataProvider = "userSearchData", priority = 2)
-    public void searchUser(String criteriaType, int dropdownValue, int dropdownIndex, String inputValue, String resultLocator) throws InterruptedException, AWTException {
+    public void searchUser(String criteriaType, int dropdownValue, int dropdownIndex, String inputValue) throws InterruptedException, AWTException {
         extentReportManager.startTest("User Functionality", "<b>Search User Using " + criteriaType + "</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can search by " + criteriaType.toLowerCase() + "</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
@@ -71,12 +71,15 @@ public class User extends baseTest {
                 "<br>Step 6 - Click Search"
         );
 
-        webSteps.select("SearchUser_SearchByDropdown", dropdownValue, dropdownIndex);
-        webSteps.type(inputValue, "SearchUser_SearchBar");
-        webSteps.click("SearchUser_SearchButton");
+        webSteps.select("SearchBy_Dropdown", dropdownValue, dropdownIndex);
+        webSteps.type(inputValue, "SearchBy_SearchBar");
+        webSteps.click("SearchBy_SearchButton");
 
-        Assert.assertEquals(inputValue, webSteps.getText(resultLocator), "Search failed for: " + criteriaType);
+        // Use a common locator for the result, update this as per your UI
+        String actualResult = webSteps.getText("//tr[1]/td[1]");
+        Assert.assertEquals(actualResult.trim(), inputValue.trim(), "Search failed for: " + criteriaType);
     }
+
 
     @Test(priority = 3)
     public void editUser() throws InterruptedException, AWTException {

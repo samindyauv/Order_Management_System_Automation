@@ -24,7 +24,7 @@ public class Login extends baseTest {
     }
     @Test
     public void loginWithValidCredentials() throws InterruptedException {
-        boolean urlVerification = driver.getCurrentUrl().contains("https://app.oms3.transexpress.parallaxtec.dev/storemate");
+        boolean urlVerification = driver.getCurrentUrl().contains("https://app.oms3.transexpress.parallaxtec.dev/welcome");
         Assert.assertTrue(urlVerification, "Expecting login success but not navigated to dashboard");
     }
 

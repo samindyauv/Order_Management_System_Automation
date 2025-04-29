@@ -149,4 +149,15 @@ public class webSteps {
         return randomCategoryName;
     }
 
+//    public String table(int row, int col){
+//        return "//tr["+row+"]/td["+col+"]";
+//    }
+
+    public String getTableCellText(int row, int col) {
+        String xpath = "//tr[" + row + "]/td[" + col + "]";
+        WebElement tableCell = driver.findElement(By.xpath(xpath));
+        return tableCell.getText().trim();
+    }
+
+
 }
