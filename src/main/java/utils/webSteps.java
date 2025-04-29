@@ -109,8 +109,24 @@ public class webSteps {
         } else {
             System.out.println("The boolean value is invalid");
         }
-
         waiting();
+    }
+
+    public void selectFromDropdown(){
+        WebElement dropdown = driver.findElement(By.xpath("//div[@class='overflow-y-auto max-h-60']"));
+        List<WebElement> childDivs = dropdown.findElements(By.xpath("./div"));
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(childDivs.size());
+
+        childDivs.get(randomIndex).click();
+
+//        WebElement parentDiv = driver.findElement(By.xpath("//div[@class='overflow-y-auto max-h-60']"));
+//        List<WebElement> childDivs = parentDiv.findElements(By.tagName("div"));
+//
+//        for (WebElement child : childDivs) {
+//            System.out.println(child.getText());
+//        }
     }
 
     public void implicitWait(String locator){
@@ -127,4 +143,10 @@ public class webSteps {
 
     public void select(String pageSizeDropdown, String s) {
     }
+
+    public String generateRandomCategoryName() {
+        String randomCategoryName = "Category_T" + ThreadLocalRandom.current().nextInt(0, 100);
+        return randomCategoryName;
+    }
+
 }

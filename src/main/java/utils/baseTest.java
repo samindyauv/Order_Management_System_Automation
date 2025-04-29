@@ -25,7 +25,7 @@ public class baseTest {
     protected webSteps webSteps;
 
     @BeforeSuite
-    public void setupReport() {
+    public void setupReport() throws IOException, InterruptedException {
         extentReportManager.initReport();
     }
 

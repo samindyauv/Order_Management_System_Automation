@@ -10,6 +10,9 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Categories extends baseTest {
+
+    String categoryName;
+
     @BeforeMethod
     public void setUp() throws InterruptedException, IOException {
 
@@ -38,5 +41,7 @@ public class Categories extends baseTest {
         webSteps.click("Category_SaveButton");
         Assert.assertEquals("Category created successfully",webSteps.getText("ToastMessage"), "Passed");
     }
+
+
 
 }
