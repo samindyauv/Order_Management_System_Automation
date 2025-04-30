@@ -1,7 +1,5 @@
 package Positive.Products;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -64,7 +62,5 @@ public class Categories extends baseTest {
         String actualResult = webSteps.getTableCellText(1, 1);
         Assert.assertEquals(actualResult, categoryName, "Search result does not match input value.");
     }
-
-
 
 }

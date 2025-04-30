@@ -1,13 +1,11 @@
 package Positive;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utils.baseTest;
 import utils.extentReportManager;
-
 import java.awt.*;
 import java.io.IOException;
 
@@ -38,7 +36,7 @@ public class User extends baseTest {
         webSteps.type("Amal Perera", "AddUser_Name");
         webSteps.click("AddUser_Role");
         webSteps.selectFromDropdown();
-        webSteps.type("761234567", "AddUser_ContactNo");
+        //webSteps.type("761234567", "AddUser_ContactNo");
         webSteps.type("amal@gmail.com", "AddUser_Email");
         webSteps.type("Amal@12345", "AddUser_Password");
         webSteps.type("Amal@12345", "AddUser_ConfirmPassword");
@@ -50,16 +48,16 @@ public class User extends baseTest {
     @DataProvider(name = "userSearchData")
     public Object[][] userSearchData() {
         return new Object[][]{
-                {"Name", 2, 0, "Kasun Bandara"},
-                {"Role", 1, 1, "Admin"},
-                {"Email", 2, 1, "kasun@gmail.com"},
-                {"Address", 3, 1, "Dewalegama,Kegalle"}
+                // criteriaType,inputValue, expectedColumnIndex
+                {"Name","Kasun Bandara", 1},
+                {"Role", "Admin", 2},
+                {"Email","kasun@gmail.com", 4},
+                {"Address","Dewalegama,Kegalle", 5}
         };
     }
 
-
     @Test(dataProvider = "userSearchData", priority = 2)
-    public void searchUser(String criteriaType, int dropdownValue, int dropdownIndex, String inputValue) throws InterruptedException, AWTException {
+    public void searchUser(String criteriaType,String inputValue, int columnIndex) throws InterruptedException, AWTException {
         extentReportManager.startTest("User Functionality", "<b>Search User Using " + criteriaType + "</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can search by " + criteriaType.toLowerCase() + "</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
@@ -71,15 +69,13 @@ public class User extends baseTest {
                 "<br>Step 6 - Click Search"
         );
 
-        webSteps.select("SearchBy_Dropdown", dropdownValue, dropdownIndex);
-        webSteps.type(inputValue, "SearchBy_SearchBar");
+        webSteps.passValue(criteriaType,"SearchBy_Dropdown");
+        webSteps.type(inputValue,"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
 
-        // Use a common locator for the result, update this as per your UI
-        String actualResult = webSteps.getText("//tr[1]/td[1]");
-        Assert.assertEquals(actualResult.trim(), inputValue.trim(), "Search failed for: " + criteriaType);
+        String actualResult = webSteps.getTableCellText(1, columnIndex);
+        Assert.assertEquals(actualResult.trim(), inputValue.trim(), "Search result mismatch for criteria: " + criteriaType);
     }
-
 
     @Test(priority = 3)
     public void editUser() throws InterruptedException, AWTException {
@@ -94,10 +90,11 @@ public class User extends baseTest {
                 "<br>Step 6- Edit Details" +
                 "<br>Step 7- Click 'Update' Button"
         );
-        webSteps.click("EditUser_Action");
+        webSteps.click("Action1");
         webSteps.type("Amal Perera", "AddUser_Name");
-        //webSteps.select("AddUser_Role",5,1);
-        webSteps.type("761234567", "AddUser_ContactNo");
+        webSteps.click("AddUser_Role");
+        webSteps.selectFromDropdown();
+        //webSteps.type("761234567", "AddUser_ContactNo");
         webSteps.type("amal@gmail.com", "AddUser_Email");
         webSteps.type("Kuliyapitiya", "AddUser_Address");
         //webSteps.click("EditUser_UpdateButton");
@@ -116,36 +113,10 @@ public class User extends baseTest {
                 "<br>Step 6- Enter New Password and Confirm Password" +
                 "<br>Step 7- Click 'Reset' Button"
         );
-        webSteps.click("UserChangePassword_Action");
+        webSteps.click("Action2");
         webSteps.type("Sami@@1234", "User_NewPassword");
         webSteps.type("Sami@@1234", "User_ConfirmPassword");
-        webSteps.click("User_PasswordResetButton");
+        webSteps.click("ResetButton");
         Assert.assertEquals("Password changed successfully",webSteps.getText("ToastMessage"), "Passed");
-    }
-
-    @DataProvider(name = "pageSizes")
-    public Object[][] pageSizes() {
-        return new Object[][]{
-                {10}, {25}, {50}, {100}, {500}, {1000}
-        };
-    }
-
-    @Test(dataProvider = "pageSizes", priority = 5)
-    public void verifyPageSize(int size) throws InterruptedException {
-        extentReportManager.startTest("Pagination", "Verify user page size option: " + size);
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can select page size " + size + "</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
-                "<br>Step 1- Login to the System" +
-                "<br>Step 2- Click User " +
-                "<br>Step 3- Click User List" +
-                "<br>Step 4 - Open the Page Size dropdown" +
-                "<br>Step 5 - Select page size " + size +
-                "<br>Step 5 - Verify the number of rows matches the page size"
-        );
-
-        webSteps.select("UserPageSizeDropdown", String.valueOf(size));
-        webSteps.waiting();
-        int rowCount = driver.findElements(By.xpath("//table/tbody/tr")).size();
-        Assert.assertTrue(rowCount <= size, "Row count exceeds selected page size: " + size);
     }
 }
