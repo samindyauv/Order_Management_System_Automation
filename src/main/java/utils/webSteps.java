@@ -145,6 +145,11 @@ public class webSteps {
         return randomCategoryName;
     }
 
+    public String generateRandomBrandName() {
+        String randomBrandName = "Brand_T" + ThreadLocalRandom.current().nextInt(0, 100);
+        return randomBrandName;
+    }
+
     public String getTableCellText(int row, int col) {
         String xpath = "//tr[" + row + "]/td[" + col + "]";
         WebElement tableCell = driver.findElement(By.xpath(xpath));

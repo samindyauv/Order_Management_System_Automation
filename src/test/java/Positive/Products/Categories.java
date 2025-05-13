@@ -85,5 +85,4 @@ public class Categories extends baseTest {
         webSteps.click("UpdateButton");
         Assert.assertEquals("Category updated successfully",webSteps.getText("ToastMessage"), "Passed");
     }
-
 }
