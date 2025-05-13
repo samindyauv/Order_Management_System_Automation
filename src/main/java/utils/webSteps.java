@@ -57,7 +57,6 @@ public class webSteps {
         waiting();
     }
 
-
     public void click(String locator) throws InterruptedException {
         By xpath = constructElement(findElementRepo(locator));
         WebElement button =  driver.findElement(xpath);
@@ -156,6 +155,4 @@ public class webSteps {
         By xpath = constructElement(findElementRepo(locator));
         driver.findElement(xpath).sendKeys(text);
     }
-
-
 }

@@ -36,7 +36,7 @@ public class User extends baseTest {
         webSteps.type("Amal Perera", "AddUser_Name");
         webSteps.click("AddUser_Role");
         webSteps.selectFromDropdown();
-        //webSteps.type("761234567", "AddUser_ContactNo");
+        webSteps.type("761234567", "AddUser_ContactNo");
         webSteps.type("amal@gmail.com", "AddUser_Email");
         webSteps.type("Amal@12345", "AddUser_Password");
         webSteps.type("Amal@12345", "AddUser_ConfirmPassword");
