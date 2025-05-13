@@ -62,6 +62,7 @@ public class Categories extends baseTest {
         String actualResult = webSteps.getTableCellText(1, 1);
         Assert.assertEquals(actualResult, categoryName, "Search result does not match input value.");
     }
+
     @Test(priority = 3)
     public void editCategory() throws InterruptedException, AWTException {
         extentReportManager.startTest("Categories Functionality", "<b>Edit Category</b>");

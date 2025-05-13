@@ -43,4 +43,23 @@ public class Brands extends baseTest {
         webSteps.implicitWait("ToastMessage");
         Assert.assertEquals("Brand created successfully",webSteps.getText("ToastMessage"), "Passed");
     }
+
+    @Test(priority = 2)
+    public void searchBrand() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Brands Functionality", "<b>Search Brand</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC02: Verify that the user can successfully search a brand</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click Products " +
+                "<br>Step 3- Click Brands " +
+                "<br>Step 4 - Select Brand Name from 'Search By' dropdown" +
+                "<br>Step 4 - Enter Search Input" +
+                "<br>Step 5 - Click Search"
+        );
+        webSteps.select("SearchBy_Dropdown",1,0);
+        webSteps.type(brandName,"SearchBy_SearchBar");
+        webSteps.click("SearchBy_SearchButton");
+        String actualResult = webSteps.getTableCellText(1, 1);
+        Assert.assertEquals(actualResult, brandName, "Search result does not match input value.");
+    }
 }
