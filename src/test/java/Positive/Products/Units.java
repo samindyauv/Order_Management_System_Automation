@@ -77,7 +77,7 @@ public class Units extends baseTest {
     }
 
     @Test(priority = 3)
-    public void editBrand() throws InterruptedException, AWTException {
+    public void editUnit() throws InterruptedException, AWTException {
         extentReportManager.startTest("Units Functionality", "<b>Edit Unit</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit an unit</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
