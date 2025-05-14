@@ -150,6 +150,16 @@ public class webSteps {
         return randomBrandName;
     }
 
+    public String generateRandomUnitName() {
+        String randomUnitName = "Unit_T" + ThreadLocalRandom.current().nextInt(0, 100);
+        return randomUnitName;
+    }
+
+    public String generateRandomUnitShortName() {
+        String randomUnitShortName = "UT_" + ThreadLocalRandom.current().nextInt(0, 100);
+        return randomUnitShortName;
+    }
+
     public String getTableCellText(int row, int col) {
         String xpath = "//tr[" + row + "]/td[" + col + "]";
         WebElement tableCell = driver.findElement(By.xpath(xpath));
