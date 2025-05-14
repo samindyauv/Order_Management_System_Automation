@@ -62,4 +62,28 @@ public class Brands extends baseTest {
         String actualResult = webSteps.getTableCellText(1, 1);
         Assert.assertEquals(actualResult, brandName, "Search result does not match input value.");
     }
+
+    @Test(priority = 3)
+    public void editBrand() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Brands Functionality", "<b>Edit Brand</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit a brand</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click Products " +
+                "<br>Step 3- Click Brands " +
+                "<br>Step 4 - Search the brand name that needs to be edited" +
+                "<br>Step 5 - Click Edit Action" +
+                "<br>Step 6 - Make the necessary changes" +
+                "<br>Step 7 - Click Update"
+        );
+        webSteps.select("SearchBy_Dropdown",1,0);
+        webSteps.type(brandName,"SearchBy_SearchBar");
+        webSteps.click("SearchBy_SearchButton");
+        webSteps.click("Action1");
+        this.brandName = webSteps.generateRandomBrandName();
+        webSteps.type(brandName,"Brand_Name");
+        webSteps.type("Testing_Edit Brand Description","Brand_Remark");
+        webSteps.click("UpdateButton");
+        Assert.assertEquals("Brand updated successfully",webSteps.getText("ToastMessage"), "Passed");
+    }
 }
