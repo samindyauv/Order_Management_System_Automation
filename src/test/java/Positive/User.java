@@ -42,7 +42,7 @@ public class User extends baseTest {
         webSteps.type("Amal@12345", "AddUser_ConfirmPassword");
         webSteps.type("Kuliyapitiya", "AddUser_Address");
         webSteps.click("SaveButton");
-        //Assert.assertEquals("User added successfully",webSteps.getText("ToastMessage"), "Passed");
+        Assert.assertEquals("User created successfully",webSteps.getText("ToastMessage"), "Passed");
     }
 
     @DataProvider(name = "userSearchData")

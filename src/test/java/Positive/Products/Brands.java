@@ -56,7 +56,7 @@ public class Brands extends baseTest {
                 "<br>Step 4 - Enter Search Input" +
                 "<br>Step 5 - Click Search"
         );
-        webSteps.select("SearchBy_Dropdown",1,0);
+        webSteps.passValue("Brand Name","SearchBy_Dropdown");
         webSteps.type(brandName,"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         String actualResult = webSteps.getTableCellText(1, 1);
@@ -76,7 +76,7 @@ public class Brands extends baseTest {
                 "<br>Step 6 - Make the necessary changes" +
                 "<br>Step 7 - Click Update"
         );
-        webSteps.select("SearchBy_Dropdown",1,0);
+        webSteps.passValue("Brand Name","SearchBy_Dropdown");
         webSteps.type(brandName,"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         webSteps.click("Action1");

@@ -76,7 +76,7 @@ public class Categories extends baseTest {
                 "<br>Step 6 - Make the necessary changes" +
                 "<br>Step 7 - Click Update"
         );
-        webSteps.select("SearchBy_Dropdown",1,0);
+        webSteps.passValue("Category Name","SearchBy_Dropdown");
         webSteps.type(categoryName,"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         webSteps.click("Action1");

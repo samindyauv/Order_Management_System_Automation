@@ -75,4 +75,30 @@ public class Units extends baseTest {
         String actualResult = webSteps.getTableCellText(1, tableColumnIndex);
         Assert.assertEquals(actualResult, searchInput, "Search result does not match input value.");
     }
+
+    @Test(priority = 3)
+    public void editBrand() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Units Functionality", "<b>Edit Unit</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit an unit</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click Products " +
+                "<br>Step 3- Click Units " +
+                "<br>Step 4 - Search the unit name that needs to be edited" +
+                "<br>Step 5 - Click Edit Action" +
+                "<br>Step 6 - Make the necessary changes" +
+                "<br>Step 7 - Click Update"
+        );
+        webSteps.passValue("Short Name","SearchBy_Dropdown");
+        webSteps.type(shortName,"SearchBy_SearchBar");
+        webSteps.click("SearchBy_SearchButton");
+        webSteps.click("Action1");
+        this.unitName = webSteps.generateRandomUnitName();
+        webSteps.type(unitName,"Unit_Name");
+        this.shortName = webSteps.generateRandomUnitShortName();
+        webSteps.type(shortName,"Short_Name");
+        webSteps.click("AllowDecimalCheckBox");
+        webSteps.click("UpdateButton");
+        Assert.assertEquals("Unit updated successfully",webSteps.getText("ToastMessage"), "Passed");
+    }
 }
