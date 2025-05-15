@@ -3,6 +3,7 @@ package Positive.Products;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import utils.PropertyUtils;
 import utils.baseTest;
 import utils.extentReportManager;
 
@@ -37,6 +38,7 @@ public class Categories extends baseTest {
         );
         webSteps.click("ClickAddNewCategory");
         this.categoryName = webSteps.generateRandomCategoryName();
+        PropertyUtils.setProperty("Category_Name", this.categoryName);
         webSteps.type(categoryName,"Category_Name");
         webSteps.type("Testing_Category Description","Category_Remark");
         webSteps.click("SaveButton");
@@ -56,6 +58,7 @@ public class Categories extends baseTest {
                 "<br>Step 4 - Enter Search Input" +
                 "<br>Step 5 - Click Search"
         );
+        this.categoryName = PropertyUtils.getProperty("Category_Name");
         webSteps.select("SearchBy_Dropdown",1,0);
         webSteps.type(categoryName,"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
@@ -76,11 +79,13 @@ public class Categories extends baseTest {
                 "<br>Step 6 - Make the necessary changes" +
                 "<br>Step 7 - Click Update"
         );
+        this.categoryName = PropertyUtils.getProperty("Category_Name");
         webSteps.passValue("Category Name","SearchBy_Dropdown");
         webSteps.type(categoryName,"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         webSteps.click("Action1");
         this.categoryName = webSteps.generateRandomCategoryName();
+        PropertyUtils.setProperty("Category_Name", this.categoryName);
         webSteps.type(categoryName,"Category_Name");
         webSteps.type("Testing_Edit Category Description","Category_Remark");
         webSteps.click("UpdateButton");

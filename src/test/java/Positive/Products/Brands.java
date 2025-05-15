@@ -3,6 +3,7 @@ package Positive.Products;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import utils.PropertyUtils;
 import utils.baseTest;
 import utils.extentReportManager;
 
@@ -37,6 +38,7 @@ public class Brands extends baseTest {
         );
         webSteps.click("ClickAddNewBrand");
         this.brandName = webSteps.generateRandomBrandName();
+        PropertyUtils.setProperty("Brand_Name", this.brandName);
         webSteps.type(brandName,"Brand_Name");
         webSteps.type("Testing_Brand Description","Brand_Remark");
         webSteps.click("SaveButton");
@@ -56,6 +58,7 @@ public class Brands extends baseTest {
                 "<br>Step 4 - Enter Search Input" +
                 "<br>Step 5 - Click Search"
         );
+        this.brandName = PropertyUtils.getProperty("Brand_Name");
         webSteps.passValue("Brand Name","SearchBy_Dropdown");
         webSteps.type(brandName,"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
@@ -81,6 +84,7 @@ public class Brands extends baseTest {
         webSteps.click("SearchBy_SearchButton");
         webSteps.click("Action1");
         this.brandName = webSteps.generateRandomBrandName();
+        PropertyUtils.setProperty("Brand_Name", this.brandName);
         webSteps.type(brandName,"Brand_Name");
         webSteps.type("Testing_Edit Brand Description","Brand_Remark");
         webSteps.click("UpdateButton");
