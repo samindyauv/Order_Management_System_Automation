@@ -65,4 +65,27 @@ public class Products extends baseTest {
         String actualResult = webSteps.getTableCellText(1, 2);
         Assert.assertEquals(actualResult, PropertyUtils.getProperty("Product_Name"), "Search result does not match input value.");
     }
+
+    @Test(priority = 3)
+    public void editProduct() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Products Functionality", "<b>Edit Product</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit a product</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click Products " +
+                "<br>Step 3- Click Product List " +
+                "<br>Step 4 - Search the product name that needs to be edited" +
+                "<br>Step 5 - Click Edit Action" +
+                "<br>Step 6 - Make the necessary changes" +
+                "<br>Step 7 - Click Update"
+        );
+        webSteps.passValue("Product Name","SearchBy_Dropdown");
+        webSteps.type(PropertyUtils.getProperty("Product_Name"),"SearchBy_SearchBar");
+        webSteps.click("SearchBy_SearchButton");
+        webSteps.click("Action1");
+        webSteps.type(webSteps.generateRandomProductName(),"Product_Name");
+        webSteps.type("Testing_Edit Product Description","Product_Description");
+        webSteps.click("SaveButton");
+        Assert.assertEquals("Product updated successfully",webSteps.getText("ToastMessage"), "Passed");
+    }
 }
