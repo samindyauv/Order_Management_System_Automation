@@ -38,7 +38,6 @@ public class Brands extends baseTest {
         );
         webSteps.click("ClickAddNewBrand");
         this.brandName = webSteps.generateRandomBrandName();
-        PropertyUtils.setProperty("Brand_Name", this.brandName);
         webSteps.type(brandName,"Brand_Name");
         webSteps.type("Testing_Brand Description","Brand_Remark");
         webSteps.click("SaveButton");
@@ -58,9 +57,8 @@ public class Brands extends baseTest {
                 "<br>Step 4 - Enter Search Input" +
                 "<br>Step 5 - Click Search"
         );
-        this.brandName = PropertyUtils.getProperty("Brand_Name");
         webSteps.passValue("Brand Name","SearchBy_Dropdown");
-        webSteps.type(brandName,"SearchBy_SearchBar");
+        webSteps.type(PropertyUtils.getProperty("Brand_Name"),"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         String actualResult = webSteps.getTableCellText(1, 1);
         Assert.assertEquals(actualResult, brandName, "Search result does not match input value.");
@@ -80,12 +78,10 @@ public class Brands extends baseTest {
                 "<br>Step 7 - Click Update"
         );
         webSteps.passValue("Brand Name","SearchBy_Dropdown");
-        webSteps.type(brandName,"SearchBy_SearchBar");
+        webSteps.type(PropertyUtils.getProperty("Brand_Name"),"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         webSteps.click("Action1");
-        this.brandName = webSteps.generateRandomBrandName();
-        PropertyUtils.setProperty("Brand_Name", this.brandName);
-        webSteps.type(brandName,"Brand_Name");
+        webSteps.type(webSteps.generateRandomBrandName(),"Brand_Name");
         webSteps.type("Testing_Edit Brand Description","Brand_Remark");
         webSteps.click("UpdateButton");
         Assert.assertEquals("Brand updated successfully",webSteps.getText("ToastMessage"), "Passed");

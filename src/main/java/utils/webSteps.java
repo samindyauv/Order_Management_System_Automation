@@ -41,7 +41,7 @@ public class webSteps {
         waiting();
     }
 
-    public void type(String text, String locator) throws InterruptedException {
+    public static void type(String text, String locator) throws InterruptedException {
         By xpath = constructElement(findElementRepo(locator));
         WebElement inputField = driver.findElement(xpath);
 
@@ -57,7 +57,7 @@ public class webSteps {
         waiting();
     }
 
-    public void click(String locator) throws InterruptedException {
+    public static void click(String locator) throws InterruptedException {
         By xpath = constructElement(findElementRepo(locator));
         WebElement button =  driver.findElement(xpath);
         button.click();
@@ -69,7 +69,7 @@ public class webSteps {
         return driver.findElement(xpath).getText();
     }
 
-    public void waiting() throws InterruptedException {
+    public static void waiting() throws InterruptedException {
         Thread.sleep(2000);
     }
 
@@ -141,23 +141,31 @@ public class webSteps {
     }
 
     public String generateRandomCategoryName() {
-        String randomCategoryName = "Category_T" + ThreadLocalRandom.current().nextInt(0, 100);
+        String randomCategoryName = "Category_" + ThreadLocalRandom.current().nextInt(0, 100);
         return randomCategoryName;
     }
 
     public String generateRandomBrandName() {
-        String randomBrandName = "Brand_T" + ThreadLocalRandom.current().nextInt(0, 100);
+        String randomBrandName = "Brand_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("Brand_Name", randomBrandName);
         return randomBrandName;
     }
 
     public String generateRandomUnitName() {
-        String randomUnitName = "Unit_T" + ThreadLocalRandom.current().nextInt(0, 100);
+        String randomUnitName = "Unit_" + ThreadLocalRandom.current().nextInt(0, 100);
         return randomUnitName;
     }
 
     public String generateRandomUnitShortName() {
         String randomUnitShortName = "UT_" + ThreadLocalRandom.current().nextInt(0, 100);
         return randomUnitShortName;
+    }
+
+    public String generateRandomProductName() {
+        String randomProductName = "Product_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("Product_Name",randomProductName);
+        return randomProductName;
+
     }
 
     public String getTableCellText(int row, int col) {
@@ -169,5 +177,14 @@ public class webSteps {
     public void passValue(String text, String locator){
         By xpath = constructElement(findElementRepo(locator));
         driver.findElement(xpath).sendKeys(text);
+    }
+
+    public void searchFromDropdown(String propertyValue, String locator) throws InterruptedException {
+        String name = PropertyUtils.getProperty(propertyValue);
+        click(locator);
+        type(name,"Search");
+        WebElement element = driver.findElement(By.xpath("//div[contains(text(),'" + name + "')]"));
+        element.click();
+        waiting();
     }
 }
