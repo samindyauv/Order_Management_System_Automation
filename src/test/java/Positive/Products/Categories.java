@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import utils.PropertyUtils;
 import utils.baseTest;
 import utils.extentReportManager;
-
 import java.awt.*;
 import java.io.IOException;
 
@@ -16,7 +15,6 @@ public class Categories extends baseTest {
 
     @BeforeMethod
     public void setUp() throws InterruptedException, IOException {
-
         loadUrl();
         webSteps.login();
         webSteps.waiting();
@@ -37,9 +35,7 @@ public class Categories extends baseTest {
                 "<br>Step 6- Click 'Save' Button"
         );
         webSteps.click("ClickAddNewCategory");
-        this.categoryName = webSteps.generateRandomCategoryName();
-        PropertyUtils.setProperty("Category_Name", this.categoryName);
-        webSteps.type(categoryName,"Category_Name");
+        webSteps.type(webSteps.generateRandomCategoryName(),"Category_Name");
         webSteps.type("Testing_Category Description","Category_Remark");
         webSteps.click("SaveButton");
         webSteps.implicitWait("ToastMessage");
@@ -58,12 +54,11 @@ public class Categories extends baseTest {
                 "<br>Step 4 - Enter Search Input" +
                 "<br>Step 5 - Click Search"
         );
-        this.categoryName = PropertyUtils.getProperty("Category_Name");
-        webSteps.select("SearchBy_Dropdown",1,0);
-        webSteps.type(categoryName,"SearchBy_SearchBar");
+        webSteps.passValue("Category Name","SearchBy_Dropdown");
+        webSteps.type(PropertyUtils.getProperty("Category_Name"),"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         String actualResult = webSteps.getTableCellText(1, 1);
-        Assert.assertEquals(actualResult, categoryName, "Search result does not match input value.");
+        Assert.assertEquals(actualResult, PropertyUtils.getProperty("Category_Name"), "Search result does not match input value.");
     }
 
     @Test(priority = 3)
@@ -79,14 +74,11 @@ public class Categories extends baseTest {
                 "<br>Step 6 - Make the necessary changes" +
                 "<br>Step 7 - Click Update"
         );
-        this.categoryName = PropertyUtils.getProperty("Category_Name");
         webSteps.passValue("Category Name","SearchBy_Dropdown");
-        webSteps.type(categoryName,"SearchBy_SearchBar");
+        webSteps.type(PropertyUtils.getProperty("Category_Name"),"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         webSteps.click("Action1");
-        this.categoryName = webSteps.generateRandomCategoryName();
-        PropertyUtils.setProperty("Category_Name", this.categoryName);
-        webSteps.type(categoryName,"Category_Name");
+        webSteps.type(webSteps.generateRandomCategoryName(),"Category_Name");
         webSteps.type("Testing_Edit Category Description","Category_Remark");
         webSteps.click("UpdateButton");
         Assert.assertEquals("Category updated successfully",webSteps.getText("ToastMessage"), "Passed");

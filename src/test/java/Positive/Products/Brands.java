@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import utils.PropertyUtils;
 import utils.baseTest;
 import utils.extentReportManager;
-
 import java.awt.*;
 import java.io.IOException;
 
@@ -16,7 +15,6 @@ public class Brands extends baseTest {
 
     @BeforeMethod
     public void setUp() throws InterruptedException, IOException {
-
         loadUrl();
         webSteps.login();
         webSteps.waiting();
@@ -37,8 +35,7 @@ public class Brands extends baseTest {
                 "<br>Step 6- Click 'Save' Button"
         );
         webSteps.click("ClickAddNewBrand");
-        this.brandName = webSteps.generateRandomBrandName();
-        webSteps.type(brandName,"Brand_Name");
+        webSteps.type(webSteps.generateRandomBrandName(),"Brand_Name");
         webSteps.type("Testing_Brand Description","Brand_Remark");
         webSteps.click("SaveButton");
         webSteps.implicitWait("ToastMessage");
@@ -61,7 +58,7 @@ public class Brands extends baseTest {
         webSteps.type(PropertyUtils.getProperty("Brand_Name"),"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         String actualResult = webSteps.getTableCellText(1, 1);
-        Assert.assertEquals(actualResult, brandName, "Search result does not match input value.");
+        Assert.assertEquals(actualResult, PropertyUtils.getProperty("Brand_Name"), "Search result does not match input value.");
     }
 
     @Test(priority = 3)

@@ -142,6 +142,7 @@ public class webSteps {
 
     public String generateRandomCategoryName() {
         String randomCategoryName = "Category_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("Category_Name", randomCategoryName);
         return randomCategoryName;
     }
 
@@ -153,11 +154,13 @@ public class webSteps {
 
     public String generateRandomUnitName() {
         String randomUnitName = "Unit_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("Unit_Name", randomUnitName);
         return randomUnitName;
     }
 
     public String generateRandomUnitShortName() {
         String randomUnitShortName = "UT_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("Short_Name", randomUnitShortName);
         return randomUnitShortName;
     }
 
