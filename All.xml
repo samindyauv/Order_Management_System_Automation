@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Order Management System">
+    <test name="OMS">
+        <classes>
+            <class name="Positive.Products.Categories"/>
+            <class name="Positive.Products.Brands"/>
+            <class name="Positive.Products.Units"/>
+        </classes>
+    </test>
+</suite>
