@@ -46,4 +46,23 @@ public class Products extends baseTest {
         webSteps.implicitWait("ToastMessage");
         Assert.assertEquals("Product created successfully",webSteps.getText("ToastMessage"), "Passed");
     }
+
+    @Test(priority = 2)
+    public void searchProduct() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Products Functionality", "<b>Search Product</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC02: Verify that the user can successfully search a product</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click Products " +
+                "<br>Step 3- Click Product List " +
+                "<br>Step 4 - Select Product Name from 'Search By' dropdown" +
+                "<br>Step 4 - Enter Search Input" +
+                "<br>Step 5 - Click Search"
+        );
+        webSteps.passValue("Product Name","SearchBy_Dropdown");
+        webSteps.type(PropertyUtils.getProperty("Product_Name"),"SearchBy_SearchBar");
+        webSteps.click("SearchBy_SearchButton");
+        String actualResult = webSteps.getTableCellText(1, 2);
+        Assert.assertEquals(actualResult, PropertyUtils.getProperty("Product_Name"), "Search result does not match input value.");
+    }
 }
