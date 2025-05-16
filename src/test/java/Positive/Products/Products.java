@@ -36,14 +36,14 @@ public class Products extends baseTest {
                 "<br>Step 6- Click 'Save' Button"
         );
         webSteps.click("ClickAddNewProduct");
-        this.productName = webSteps.generateRandomProductName();
-        webSteps.type(productName,"Product_Name");
+        webSteps.type(webSteps.generateRandomProductName(),"Product_Name");
         webSteps.searchFromDropdown("Unit_Name","Product_Unit");
-
-
-//        webSteps.type("Testing_Brand Description","Brand_Remark");
-//        webSteps.click("SaveButton");
-//        webSteps.implicitWait("ToastMessage");
-//        Assert.assertEquals("Brand created successfully",webSteps.getText("ToastMessage"), "Passed");
+        webSteps.searchFromDropdown("Brand_Name","Product_Brand");
+        webSteps.searchFromDropdown("Category_Name","Product_Category");
+        webSteps.type("1000","Product_SellingPrice");
+        webSteps.type("Testing_Product Description","Product_Description");
+        webSteps.click("SaveButton");
+        webSteps.implicitWait("ToastMessage");
+        Assert.assertEquals("Product created successfully",webSteps.getText("ToastMessage"), "Passed");
     }
 }

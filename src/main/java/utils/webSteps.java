@@ -185,7 +185,7 @@ public class webSteps {
     public void searchFromDropdown(String propertyValue, String locator) throws InterruptedException {
         String name = PropertyUtils.getProperty(propertyValue);
         click(locator);
-        type(name,"Search");
+        type(name,"DropdownSearch");
         WebElement element = driver.findElement(By.xpath("//div[contains(text(),'" + name + "')]"));
         element.click();
         waiting();
