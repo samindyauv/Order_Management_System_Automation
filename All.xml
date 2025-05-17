@@ -6,6 +6,7 @@
             <class name="Positive.Products.Categories"/>
             <class name="Positive.Products.Brands"/>
             <class name="Positive.Products.Units"/>
+            <class name="Positive.Products.Products"/>
         </classes>
     </test>
 </suite>

@@ -140,6 +140,25 @@ public class webSteps {
         }
     }
 
+    public String generateRandomUserName() {
+        String randomUserName = "User_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("User_Name", randomUserName);
+        return randomUserName;
+    }
+
+    public static String generateRandomUserEmail() {
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 100);
+        String randomEmail = "test" + randomNum + "@example.com";
+        PropertyUtils.setProperty("User_Email", randomEmail);
+        return randomEmail;
+    }
+
+    public String generateRandomRoleName() {
+        String randomRoleName = "Role_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("Role_Name", randomRoleName);
+        return randomRoleName;
+    }
+
     public String generateRandomCategoryName() {
         String randomCategoryName = "Category_" + ThreadLocalRandom.current().nextInt(0, 100);
         PropertyUtils.setProperty("Category_Name", randomCategoryName);
