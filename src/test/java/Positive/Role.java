@@ -61,4 +61,26 @@ public class Role extends baseTest {
         String actualResult = webSteps.getTableCellText(1, 1);
         Assert.assertEquals(actualResult, PropertyUtils.getProperty("Role_Name"), "Search result does not match input value.");
     }
+
+    @Test(priority = 3)
+    public void editRole() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Roles Functionality", "<b>Edit Role</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit a role</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click User" +
+                "<br>Step 3- Click Roles" +
+                "<br>Step 4 - Search the role name that needs to be edited" +
+                "<br>Step 5 - Click Edit Action" +
+                "<br>Step 6 - Make the necessary changes" +
+                "<br>Step 7 - Click Update"
+        );
+        webSteps.passValue("Role","SearchBy_Dropdown");
+        webSteps.type(PropertyUtils.getProperty("Role_Name"),"SearchBy_SearchBar");
+        webSteps.click("SearchBy_SearchButton");
+        webSteps.click("Action1");
+        webSteps.type(webSteps.generateRandomRoleName(),"Role_Name");
+        webSteps.click("UpdateButton");
+        Assert.assertEquals("Role updated successfully",webSteps.getText("ToastMessage"), "Passed");
+    }
 }
