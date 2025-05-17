@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import utils.PropertyUtils;
 import utils.baseTest;
 import utils.extentReportManager;
 import java.awt.*;
@@ -12,7 +13,6 @@ import java.io.IOException;
 public class User extends baseTest {
     @BeforeMethod
     public void setUp() throws InterruptedException, IOException {
-
         loadUrl();
         webSteps.login();
         webSteps.waiting();
@@ -33,14 +33,13 @@ public class User extends baseTest {
                 "<br>Step 6- Click 'Save' Button"
         );
         webSteps.click("ClickAddNewUserButton");
-        webSteps.type("Amal Perera", "AddUser_Name");
-        webSteps.click("AddUser_Role");
-        webSteps.selectFromDropdown();
-        webSteps.type("761234567", "AddUser_ContactNo");
-        webSteps.type("amal@gmail.com", "AddUser_Email");
-        webSteps.type("Amal@12345", "AddUser_Password");
-        webSteps.type("Amal@12345", "AddUser_ConfirmPassword");
-        webSteps.type("Kuliyapitiya", "AddUser_Address");
+        webSteps.type(webSteps.generateRandomUserName(),"User_Name");
+        webSteps.searchFromDropdown("Role_Name","User_Role");
+        webSteps.type(webSteps.generateRandomContactNumber(),"User_ContactNo");
+        webSteps.type(webSteps.generateRandomUserEmail(),"User_Email");
+        webSteps.type("Test@12345", "User_Password");
+        webSteps.type("Test@12345", "User_ConfirmPassword");
+        webSteps.type(webSteps.generateRandomUserAddress(),"User_Address");
         webSteps.click("SaveButton");
         Assert.assertEquals("User created successfully",webSteps.getText("ToastMessage"), "Passed");
     }
@@ -48,11 +47,10 @@ public class User extends baseTest {
     @DataProvider(name = "userSearchData")
     public Object[][] userSearchData() {
         return new Object[][]{
-                // criteriaType,inputValue, expectedColumnIndex
-                {"Name","Kasun Bandara", 1},
-                {"Role", "Admin", 2},
-                {"Email","kasun@gmail.com", 4},
-                {"Address","Dewalegama,Kegalle", 5}
+                {"User", PropertyUtils.getProperty("User_Name"), 1},
+                {"Role", PropertyUtils.getProperty("Role_Name"), 2},
+                {"Email",PropertyUtils.getProperty("User_Email"), 4},
+                {"Address",PropertyUtils.getProperty("User_Address"), 5}
         };
     }
 
@@ -68,11 +66,9 @@ public class User extends baseTest {
                 "<br>Step 5 - Enter Search Input" +
                 "<br>Step 6 - Click Search"
         );
-
         webSteps.passValue(criteriaType,"SearchBy_Dropdown");
         webSteps.type(inputValue,"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
-
         String actualResult = webSteps.getTableCellText(1, columnIndex);
         Assert.assertEquals(actualResult.trim(), inputValue.trim(), "Search result mismatch for criteria: " + criteriaType);
     }
@@ -90,15 +86,17 @@ public class User extends baseTest {
                 "<br>Step 6- Edit Details" +
                 "<br>Step 7- Click 'Update' Button"
         );
+        webSteps.passValue("User","SearchBy_Dropdown");
+        webSteps.type(PropertyUtils.getProperty("User_Name"),"SearchBy_SearchBar");
+        webSteps.click("SearchBy_SearchButton");
         webSteps.click("Action1");
-        webSteps.type("Amal Perera", "AddUser_Name");
-        webSteps.click("AddUser_Role");
-        webSteps.selectFromDropdown();
-        //webSteps.type("761234567", "AddUser_ContactNo");
-        webSteps.type("amal@gmail.com", "AddUser_Email");
-        webSteps.type("Kuliyapitiya", "AddUser_Address");
-        //webSteps.click("EditUser_UpdateButton");
-        //Assert.assertEquals("User added successfully",webSteps.getText("ToastMessage"), "Passed");
+        webSteps.type(webSteps.generateRandomUserName(),"User_Name");
+        webSteps.searchFromDropdown("Role_Name","User_Role");
+        webSteps.type(webSteps.generateRandomContactNumber(),"User_ContactNo");
+        webSteps.type(webSteps.generateRandomUserEmail(),"User_Email");
+        webSteps.type(webSteps.generateRandomUserAddress(),"User_Address");
+        webSteps.click("UpdateButton");
+        Assert.assertEquals("User updated successfully",webSteps.getText("ToastMessage"), "Passed");
     }
 
     @Test(priority = 4)
@@ -113,9 +111,12 @@ public class User extends baseTest {
                 "<br>Step 6- Enter New Password and Confirm Password" +
                 "<br>Step 7- Click 'Reset' Button"
         );
+        webSteps.passValue("User","SearchBy_Dropdown");
+        webSteps.type(PropertyUtils.getProperty("User_Name"),"SearchBy_SearchBar");
+        webSteps.click("SearchBy_SearchButton");
         webSteps.click("Action2");
-        webSteps.type("Sami@@1234", "User_NewPassword");
-        webSteps.type("Sami@@1234", "User_ConfirmPassword");
+        webSteps.type("Update@12345", "User_NewPassword");
+        webSteps.type("Update@12345", "User_ConfirmPassword");
         webSteps.click("ResetButton");
         Assert.assertEquals("Password changed successfully",webSteps.getText("ToastMessage"), "Passed");
     }

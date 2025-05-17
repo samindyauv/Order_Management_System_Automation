@@ -146,11 +146,24 @@ public class webSteps {
         return randomUserName;
     }
 
+    public String generateRandomUserAddress() {
+        String randomUserAddress = "Address_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("User_Address", randomUserAddress);
+        return randomUserAddress;
+    }
+
     public static String generateRandomUserEmail() {
         int randomNum = ThreadLocalRandom.current().nextInt(0, 100);
         String randomEmail = "test" + randomNum + "@example.com";
         PropertyUtils.setProperty("User_Email", randomEmail);
         return randomEmail;
+    }
+
+    public static String generateRandomContactNumber() {
+        int contactNumber = ThreadLocalRandom.current().nextInt(100_000_000, 1_000_000_000);
+        String contact = String.valueOf(contactNumber);
+        PropertyUtils.setProperty("User_ContactNo", contact);
+        return contact;
     }
 
     public String generateRandomRoleName() {
@@ -209,4 +222,5 @@ public class webSteps {
         element.click();
         waiting();
     }
+
 }
