@@ -1,6 +1,5 @@
 package Positive.Products;
 
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -12,7 +11,7 @@ import utils.extentReportManager;
 import java.awt.*;
 import java.io.IOException;
 
-public class Units extends baseTest {
+public class Unit extends baseTest {
 
     String unitName;
     String shortName;
@@ -34,7 +33,7 @@ public class Units extends baseTest {
                 "<br>Step 1- Login to the System" +
                 "<br>Step 2- Click Products " +
                 "<br>Step 3- Click Units " +
-                "<br>Step 3- Click 'Add New Unit' Button" +
+                "<br>Step 4- Click 'Add New Unit' Button" +
                 "<br>Step 5- Fill Details" +
                 "<br>Step 6- Click 'Save' Button"
         );

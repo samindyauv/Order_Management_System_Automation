@@ -3,10 +3,14 @@
 <suite name="Order Management System">
     <test name="OMS">
         <classes>
-            <class name="Positive.Products.Categories"/>
-            <class name="Positive.Products.Brands"/>
-            <class name="Positive.Products.Units"/>
-            <class name="Positive.Products.Products"/>
+            <class name="Positive.Login"/>
+            <class name="Positive.Role"/>
+            <class name="Positive.User"/>
+            <class name="Positive.Contact"/>
+            <class name="Positive.Products.Unit"/>
+            <class name="Positive.Products.Brand"/>
+            <class name="Positive.Products.Category"/>
+            <class name="Positive.Products.Product"/>
         </classes>
     </test>
 </suite>

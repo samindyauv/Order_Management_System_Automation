@@ -154,7 +154,7 @@ public class webSteps {
 
     public static String generateRandomUserEmail() {
         int randomNum = ThreadLocalRandom.current().nextInt(0, 100);
-        String randomEmail = "test" + randomNum + "@example.com";
+        String randomEmail = "user" + randomNum + "@example.com";
         PropertyUtils.setProperty("User_Email", randomEmail);
         return randomEmail;
     }
@@ -170,6 +170,45 @@ public class webSteps {
         String randomRoleName = "Role_" + ThreadLocalRandom.current().nextInt(0, 100);
         PropertyUtils.setProperty("Role_Name", randomRoleName);
         return randomRoleName;
+    }
+
+    public String generateRandomCustomerName() {
+        String randomCustomerName = "Customer_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("Customer_Name", randomCustomerName);
+        return randomCustomerName;
+    }
+
+    public static String generateRandomCustomerNumber() {
+        int contactNumber = ThreadLocalRandom.current().nextInt(100_000_000, 1_000_000_000);
+        String contact = String.valueOf(contactNumber);
+        PropertyUtils.setProperty("Customer_ContactNo", contact);
+        return contact;
+    }
+
+    public String generateRandomCustomerAddress() {
+        String randomCustomerName = "Address_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("Customer_Address", randomCustomerName);
+        return randomCustomerName;
+    }
+
+    public static String generateRandomCustomerEmail() {
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 100);
+        String randomEmail = "customer" + randomNum + "@example.com";
+        PropertyUtils.setProperty("Customer_Email", randomEmail);
+        return randomEmail;
+    }
+
+    public String generateRandomCityName() {
+        String randomCustomerName = "City_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("City_Name", randomCustomerName);
+        return randomCustomerName;
+    }
+
+    public static String generateRandomCityPostalCode() {
+        int postalCode = ThreadLocalRandom.current().nextInt(10000, 100000); // Ensures 5 digits
+        String code = String.valueOf(postalCode);
+        PropertyUtils.setProperty("City_PostalCode", code);
+        return code;
     }
 
     public String generateRandomCategoryName() {

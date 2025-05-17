@@ -9,7 +9,7 @@ import utils.extentReportManager;
 import java.awt.*;
 import java.io.IOException;
 
-public class Brands extends baseTest {
+public class Brand extends baseTest {
 
     String brandName;
 

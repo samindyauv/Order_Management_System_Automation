@@ -9,7 +9,7 @@ import utils.extentReportManager;
 import java.awt.*;
 import java.io.IOException;
 
-public class Categories extends baseTest {
+public class Category extends baseTest {
 
     String categoryName;
 

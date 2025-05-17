@@ -10,7 +10,7 @@ import utils.extentReportManager;
 import java.awt.*;
 import java.io.IOException;
 
-public class Products extends baseTest {
+public class Product extends baseTest {
     String productName;
 
     @BeforeMethod
