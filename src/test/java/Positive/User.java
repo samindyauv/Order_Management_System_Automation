@@ -76,7 +76,7 @@ public class User extends baseTest {
     @Test(priority = 3)
     public void editUser() throws InterruptedException, AWTException {
         extentReportManager.startTest("User Functionality", "<b>Edit User</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit a user</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit an user</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1- Login to the System" +
                 "<br>Step 2- Click User " +
