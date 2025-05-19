@@ -2,7 +2,9 @@ package Positive.BusinessSettings;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import utils.PropertyUtils;
 import utils.baseTest;
 import utils.extentReportManager;
 
@@ -43,5 +45,34 @@ public class City extends baseTest {
         webSteps.click("SaveButton");
         webSteps.implicitWait("ToastMessage");
         Assert.assertEquals("City created successfully",webSteps.getText("ToastMessage"));
+    }
+
+    @DataProvider(name = "citySearchData")
+    public Object[][] citySearchData() {
+        return new Object[][]{
+                //City ID
+                {"City Name", PropertyUtils.getProperty("City_Name"), 2},
+                {"Postal Code", PropertyUtils.getProperty("City_PostalCode"), 3},
+        };
+    }
+
+    @Test(dataProvider = "citySearchData", priority = 2)
+    public void searchCity (String criteriaType,String inputValue, int columnIndex) throws InterruptedException, AWTException {
+        extentReportManager.startTest("Cities Functionality", "<b>Search City Using " + criteriaType + "</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the city can search by " + criteriaType.toLowerCase() + "</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1 - Login to the System" +
+                "<br>Step 2- Click Settings " +
+                "<br>Step 3- Click Business Settings " +
+                "<br>Step 4- Click Cities " +
+                "<br>Step 5 - Select '" + criteriaType + "' from 'Search By' dropdown" +
+                "<br>Step 6 - Enter Search Input" +
+                "<br>Step 7 - Click Search"
+        );
+        webSteps.passValue(criteriaType,"SearchBy_Dropdown");
+        webSteps.type(inputValue,"SearchBy_SearchBar");
+        webSteps.click("SearchBy_SearchButton");
+        String actualResult = webSteps.getTableCellText(1, columnIndex);
+        Assert.assertEquals(actualResult.trim(), inputValue.trim(), "Search result mismatch for criteria: " + criteriaType);
     }
 }

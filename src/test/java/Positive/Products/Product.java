@@ -63,6 +63,7 @@ public class Product extends baseTest {
         webSteps.type(PropertyUtils.getProperty("Product_Name"),"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         String actualResult = webSteps.getTableCellText(1, 2);
+
         Assert.assertEquals(actualResult, PropertyUtils.getProperty("Product_Name"), "Search result does not match input value.");
     }
 
