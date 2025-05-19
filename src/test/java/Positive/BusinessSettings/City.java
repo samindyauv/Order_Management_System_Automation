@@ -75,4 +75,28 @@ public class City extends baseTest {
         String actualResult = webSteps.getTableCellText(1, columnIndex);
         Assert.assertEquals(actualResult.trim(), inputValue.trim(), "Search result mismatch for criteria: " + criteriaType);
     }
+
+    @Test(priority = 3)
+    public void editCity() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Cities Functionality", "<b>Edit City</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit a city</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click Settings " +
+                "<br>Step 3- Click Business Settings " +
+                "<br>Step 4- Click Cities " +
+                "<br>Step 3- Select a City" +
+                "<br>Step 4- Click Edit Action" +
+                "<br>Step 5- Edit Details" +
+                "<br>Step 6- Click 'Update' Button"
+        );
+        webSteps.passValue("City Name","SearchBy_Dropdown");
+        webSteps.type(PropertyUtils.getProperty("City_Name"),"SearchBy_SearchBar");
+        webSteps.click("SearchBy_SearchButton");
+        webSteps.click("Action1");
+        webSteps.type(webSteps.generateRandomCityName(),"City_Name");
+        webSteps.type(webSteps.generateRandomCityPostalCode(),"City_PostalCode");
+        webSteps.click("UpdateButton");
+        Assert.assertEquals("City updated successfully",webSteps.getText("ToastMessage"), "Passed");
+    }
 }
