@@ -99,4 +99,26 @@ public class City extends baseTest {
         webSteps.click("UpdateButton");
         Assert.assertEquals("City updated successfully",webSteps.getText("ToastMessage"), "Passed");
     }
+
+    @Test(priority = 3)
+    public void deactivateCity() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Cities Functionality", "<b>Deactivate City</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully deactivate a city</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click Settings " +
+                "<br>Step 3- Click Business Settings " +
+                "<br>Step 4- Click Cities " +
+                "<br>Step 3- Select a City" +
+                "<br>Step 4- Click Deactivate Action" +
+                "<br>Step 5- Confirm Deactivation" +
+                "<br>Step 6- Click 'Deactivate' Button"
+        );
+        webSteps.passValue("City Name","SearchBy_Dropdown");
+        webSteps.type(PropertyUtils.getProperty("City_Name"),"SearchBy_SearchBar");
+        webSteps.click("SearchBy_SearchButton");
+        webSteps.click("Action2");
+        webSteps.click("DeactivateButton");
+        Assert.assertEquals("City active status toggled successfully",webSteps.getText("ToastMessage"), "Passed");
+    }
 }
