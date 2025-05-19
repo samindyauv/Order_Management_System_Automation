@@ -242,6 +242,38 @@ public class webSteps {
 
     }
 
+    public String generateRandomLocationName() {
+        String randomLocationName = "Location_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("Location_Name",randomLocationName);
+        return randomLocationName;
+    }
+
+    public String generateRandomLocationAddress() {
+        String randomLocationAddress = "Address_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("Location_Address",randomLocationAddress);
+        return randomLocationAddress;
+    }
+
+    public String generateRandomLocationCity() {
+        String randomLocationCity = "City_" + ThreadLocalRandom.current().nextInt(0, 100);
+        PropertyUtils.setProperty("Location_City",randomLocationCity);
+        return randomLocationCity;
+    }
+
+    public static String generateRandomLocationContactNo() {
+        int randomLocationContactNo = ThreadLocalRandom.current().nextInt(100_000_000, 1_000_000_000);
+        String contact = String.valueOf(randomLocationContactNo);
+        PropertyUtils.setProperty("Location_ContactNo", contact);
+        return contact;
+    }
+
+    public static String generateRandomLocationEmail() {
+        int randomNum = ThreadLocalRandom.current().nextInt(0, 100);
+        String randomEmail = "location" + randomNum + "@example.com";
+        PropertyUtils.setProperty("Location_Email", randomEmail);
+        return randomEmail;
+    }
+
     public String getTableCellText(int row, int col) {
         String xpath = "//tr[" + row + "]/td[" + col + "]";
         WebElement tableCell = driver.findElement(By.xpath(xpath));
