@@ -59,7 +59,7 @@ public class Location extends baseTest {
 
     @Test(dataProvider = "locationSearchData", priority = 2)
     public void searchLocation (String criteriaType,String inputValue, int columnIndex) throws InterruptedException, AWTException {
-        extentReportManager.startTest("Cities Functionality", "<b>Search Location Using " + criteriaType + "</b>");
+        extentReportManager.startTest("Locations Functionality", "<b>Search Location Using " + criteriaType + "</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the location can search by " + criteriaType.toLowerCase() + "</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1 - Login to the System" +
@@ -77,4 +77,30 @@ public class Location extends baseTest {
         Assert.assertEquals(actualResult.trim(), inputValue.trim(), "Search result mismatch for criteria: " + criteriaType);
     }
 
+    @Test(priority = 3)
+    public void editLocation() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Locations Functionality", "<b>Edit Location</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit a location</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click Settings " +
+                "<br>Step 3- Click Business Settings " +
+                "<br>Step 4- Click Locations " +
+                "<br>Step 3- Select a Location" +
+                "<br>Step 4- Click Edit Action" +
+                "<br>Step 5- Edit Details" +
+                "<br>Step 6- Click 'Update' Button"
+        );
+        webSteps.passValue("Location","SearchBy_Dropdown");
+        webSteps.type(PropertyUtils.getProperty("Location_Name"),"SearchBy_SearchBar");
+        webSteps.click("SearchBy_SearchButton");
+        webSteps.click("Action1");
+        webSteps.type(webSteps.generateRandomLocationName(),"Location_Name");
+        webSteps.type(webSteps.generateRandomLocationAddress(),"Location_Address");
+        webSteps.type(webSteps.generateRandomLocationCity(),"Location_City");
+        webSteps.type(webSteps.generateRandomLocationContactNo(),"Location_ContactNo");
+        webSteps.type(webSteps.generateRandomLocationEmail(),"Location_Email");
+        webSteps.click("UpdateButton");
+        Assert.assertEquals("Location updated successfully",webSteps.getText("ToastMessage"), "Passed");
+    }
 }
