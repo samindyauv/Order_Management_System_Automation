@@ -1,23 +1,23 @@
-name: 🚀 Run TestNG Suite with Custom Report Upload
+name: 🚀 Run TestNG Suite - All.xml with HTML Report Upload
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '40 4 * * *'  # Runs daily at 10:10 AM IST
+    - cron: '56 6 * * *'  # Runs daily at 12:26 PM IST (UTC+5:30)
 
 jobs:
-  testng-suite:
+  run-testng-tests:
     runs-on: ubuntu-latest
 
     steps:
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v3
 
-      - name: ☕ Set up Java 21 (Temurin)
+      - name: ☕ Set up Java 17 (Eclipse Temurin)
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '21'
+          java-version: '17'
 
       - name: 📦 Install Maven
         run: |
@@ -27,11 +27,11 @@ jobs:
       - name: ▶️ Run TestNG Suite (All.xml)
         run: mvn clean test -DsuiteXmlFile=All.xml
 
-      - name: 🧾 Debug: List contents of custom report folder
-        run: ls -lR testng-report
-
-      - name: 📤 Upload TestNG Custom Report
+      - name: 📤 Upload TestNG HTML Report
         uses: actions/upload-artifact@v4
         with:
-          name: TestNG-Custom-Report
-          path: testng-report
+          name: TestNG-HTML-Report
+          path: test-output  # Change if your report folder is different
+
+      - name: 📝 Add Report Download Link to Summary
+        run: echo "[📄 Download HTML Report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
