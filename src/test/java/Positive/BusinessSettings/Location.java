@@ -13,6 +13,12 @@ import java.io.IOException;
 
 public class Location extends baseTest {
 
+    String locationName;
+    String locationAddress;
+    String locationCity;
+    String locationContactNo;
+    String locationEmail;
+
     @BeforeMethod
     public void setUp() throws InterruptedException, IOException {
         loadUrl();
@@ -37,14 +43,24 @@ public class Location extends baseTest {
                 "<br>Step 7- Click 'Save' Button"
         );
         webSteps.click("ClickAddNewLocation");
-        webSteps.type(webSteps.generateRandomLocationName(),"Location_Name");
-        webSteps.type(webSteps.generateRandomLocationAddress(),"Location_Address");
-        webSteps.type(webSteps.generateRandomLocationCity(),"Location_City");
-        webSteps.type(webSteps.generateRandomLocationContactNo(),"Location_ContactNo");
-        webSteps.type(webSteps.generateRandomLocationEmail(),"Location_Email");
+        locationName = webSteps.generateRandomLocationName();
+        webSteps.type(locationName,"Location_Name");
+        locationAddress = webSteps.generateRandomLocationAddress();
+        webSteps.type(locationAddress,"Location_Address");
+        locationCity = webSteps.generateRandomLocationCity();
+        webSteps.type(locationCity,"Location_City");
+        locationContactNo = webSteps.generateRandomLocationContactNo();
+        webSteps.type(locationAddress,"Location_ContactNo");
+        locationEmail = webSteps.generateRandomLocationEmail();
+        webSteps.type(locationEmail,"Location_Email");
         webSteps.click("SaveButton");
         webSteps.implicitWait("ToastMessage");
         Assert.assertEquals("Location created successfully",webSteps.getText("ToastMessage"));
+        PropertyUtils.setProperty("Location_Name", locationName);
+        PropertyUtils.setProperty("Location_Address", locationAddress);
+        PropertyUtils.setProperty("Location_City", locationCity);
+        PropertyUtils.setProperty("Location_ContactNo", locationContactNo);
+        PropertyUtils.setProperty("Location_Email", locationEmail);
     }
 
     @DataProvider(name = "locationSearchData")
@@ -95,12 +111,17 @@ public class Location extends baseTest {
         webSteps.type(PropertyUtils.getProperty("Location_Name"),"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         webSteps.click("Action1");
-        webSteps.type(webSteps.generateRandomLocationName(),"Location_Name");
-        webSteps.type(webSteps.generateRandomLocationAddress(),"Location_Address");
-        webSteps.type(webSteps.generateRandomLocationCity(),"Location_City");
-        webSteps.type(webSteps.generateRandomLocationContactNo(),"Location_ContactNo");
-        webSteps.type(webSteps.generateRandomLocationEmail(),"Location_Email");
+        locationName = webSteps.generateRandomLocationName();
+        webSteps.type(locationName,"Location_Name");
+        locationAddress = webSteps.generateRandomLocationAddress();
+        webSteps.type(locationAddress,"Location_Address");
+        locationCity = webSteps.generateRandomLocationCity();
+        webSteps.type(locationCity,"Location_City");
+        locationContactNo = webSteps.generateRandomLocationContactNo();
+        webSteps.type(locationAddress,"Location_ContactNo");
+        locationEmail = webSteps.generateRandomLocationEmail();
+        webSteps.type(locationEmail,"Location_Email");
         webSteps.click("UpdateButton");
-        Assert.assertEquals("Location updated successfully",webSteps.getText("ToastMessage"), "Passed");
+        Assert.assertEquals("Location updated successfully",webSteps.getText("ToastMessage"));
     }
 }

@@ -18,7 +18,7 @@ import java.time.Duration;
 import java.util.Properties;
 
 // Base class for setting up browser, loading URL, and managing test reports.
-public class baseTest {
+public class baseTest{
     protected static String browser = null;
     protected WebDriver driver;
     protected String baseUrl;
@@ -120,17 +120,4 @@ public class baseTest {
         extentReportManager.captureScreenshot(driver, result);
         tearDown();
     }
-
-    public int getPageSizeIndex(int size) {
-        switch (size) {
-            case 10: return 0;
-            case 25: return 1;
-            case 50: return 2;
-            case 100: return 3;
-            case 500: return 4;
-            case 1000: return 5;
-            default: throw new IllegalArgumentException("Unsupported page size: " + size);
-        }
-    }
-
 }

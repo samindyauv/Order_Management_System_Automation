@@ -24,7 +24,7 @@ public class Role extends baseTest {
 
     @Test(priority = 1)
     public void addRole() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Roles Functionality", "<b>Add Role</b>");
+        extentReportManager.startTest("Role Functionality", "<b>Add Role</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC01: Verify that the user can successfully add a role</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1- Login to the System" +
@@ -32,20 +32,26 @@ public class Role extends baseTest {
                 "<br>Step 3- Click Roles " +
                 "<br>Step 3- Click 'Add New Role' Button" +
                 "<br>Step 5- Fill Details" +
-                "<br>Step 6- Click 'Save' Button"
-        );
-        webSteps.click("ClickAddNewRoleButton");
-        webSteps.type(webSteps.generateRandomRoleName(),"Role_Name");
-        webSteps.click("AddPermissionButton");
-        webSteps.click("UserAllPermissionCheckbox");
-        webSteps.click("SaveButton");
-        webSteps.implicitWait("ToastMessage");
-        Assert.assertEquals("Role created successfully",webSteps.getText("ToastMessage"), "Passed");
+                "<br>Step 6- Click 'Save' Button");
+
+        try {
+            webSteps.click("ClickAddNewRoleButton");
+            role = webSteps.generateRandomRoleName();
+            webSteps.type(role, "Role_Name");
+            webSteps.click("AddPermissionButton");
+            webSteps.click("UserAllPermissionCheckbox");
+            webSteps.click("SaveButton");
+            webSteps.implicitWait("ToastMessage");
+            Assert.assertEquals("Role created successfully", webSteps.getText("ToastMessage"));
+            PropertyUtils.setProperty("Role_Name", role);
+        } catch (Exception e) {
+            Assert.fail("Add Role failed: " + e.getMessage());
+        }
     }
 
     @Test(priority = 2)
     public void searchRole() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Roles Functionality", "<b>Search Role</b>");
+        extentReportManager.startTest("Role Functionality", "<b>Search Role</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC02: Verify that the user can successfully search a role</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1- Login to the System" +
@@ -53,18 +59,22 @@ public class Role extends baseTest {
                 "<br>Step 3- Click Roles " +
                 "<br>Step 4 - Select Role from 'Search By' dropdown" +
                 "<br>Step 4 - Enter Search Input" +
-                "<br>Step 5 - Click Search"
-        );
-        webSteps.passValue("Role","SearchBy_Dropdown");
-        webSteps.type(PropertyUtils.getProperty("Role_Name"),"SearchBy_SearchBar");
-        webSteps.click("SearchBy_SearchButton");
-        String actualResult = webSteps.getTableCellText(1, 1);
-        Assert.assertEquals(actualResult, PropertyUtils.getProperty("Role_Name"), "Search result does not match input value.");
+                "<br>Step 5 - Click Search");
+
+        try {
+            webSteps.passValue("Role", "SearchBy_Dropdown");
+            webSteps.type(PropertyUtils.getProperty("Role_Name"), "SearchBy_SearchBar");
+            webSteps.click("SearchBy_SearchButton");
+            String actualResult = webSteps.getTableCellText(1, 1);
+            Assert.assertEquals(actualResult, PropertyUtils.getProperty("Role_Name"), "Search result does not match input value.");
+        } catch (Exception e) {
+            Assert.fail("Search Role failed: " + e.getMessage());
+        }
     }
 
     @Test(priority = 3)
     public void editRole() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Roles Functionality", "<b>Edit Role</b>");
+        extentReportManager.startTest("Role Functionality", "<b>Edit Role</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit a role</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1- Login to the System" +
@@ -73,14 +83,20 @@ public class Role extends baseTest {
                 "<br>Step 4 - Search the role name that needs to be edited" +
                 "<br>Step 5 - Click Edit Action" +
                 "<br>Step 6 - Make the necessary changes" +
-                "<br>Step 7 - Click Update"
-        );
-        webSteps.passValue("Role","SearchBy_Dropdown");
-        webSteps.type(PropertyUtils.getProperty("Role_Name"),"SearchBy_SearchBar");
-        webSteps.click("SearchBy_SearchButton");
-        webSteps.click("Action1");
-        webSteps.type(webSteps.generateRandomRoleName(),"Role_Name");
-        webSteps.click("UpdateButton");
-        Assert.assertEquals("Role updated successfully",webSteps.getText("ToastMessage"), "Passed");
+                "<br>Step 7 - Click Update");
+
+        try {
+            webSteps.passValue("Role", "SearchBy_Dropdown");
+            webSteps.type(PropertyUtils.getProperty("Role_Name"), "SearchBy_SearchBar");
+            webSteps.click("SearchBy_SearchButton");
+            webSteps.click("Action1");
+            role = webSteps.generateRandomRoleName();
+            webSteps.type(role, "Role_Name");
+            webSteps.click("UpdateButton");
+            Assert.assertEquals("Role updated successfully", webSteps.getText("ToastMessage"), "Passed");
+            PropertyUtils.setProperty("Role_Name", role);
+        } catch (Exception e) {
+            Assert.fail("Edit Role failed: " + e.getMessage());
+        }
     }
 }

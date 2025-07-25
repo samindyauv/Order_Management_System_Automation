@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Order Management System">
+    <test name="OMS">
+        <classes>
+            <class name="Positive.User">
+                <methods>
+                    <include name="searchUser"/>
+                </methods>
+            </class>
+
+            <class name="Positive.Role">
+                <methods>
+                    <include name="searchRole"/>
+                </methods>
+            </class>
+
+            <class name="Positive.Contact">
+                <methods>
+                    <include name="searchCustomer"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

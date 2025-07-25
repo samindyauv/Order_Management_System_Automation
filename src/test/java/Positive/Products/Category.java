@@ -24,8 +24,8 @@ public class Category extends baseTest {
 
     @Test(priority = 1)
     public void addCategory() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Categories Functionality", "<b>Add Category</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC01: Verify that the user can successfully add a category</b>");
+        extentReportManager.startTest("Category Functionality", "<b>Add Category</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can successfully add a category</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1- Login to the System" +
                 "<br>Step 2- Click Products " +
@@ -35,17 +35,19 @@ public class Category extends baseTest {
                 "<br>Step 6- Click 'Save' Button"
         );
         webSteps.click("ClickAddNewCategory");
-        webSteps.type(webSteps.generateRandomCategoryName(),"Category_Name");
+        categoryName = webSteps.generateRandomCategoryName();
+        webSteps.type(categoryName,"Category_Name");
         webSteps.type("Testing_Category Description","Category_Remark");
         webSteps.click("SaveButton");
         webSteps.implicitWait("ToastMessage");
-        Assert.assertEquals("Category created successfully",webSteps.getText("ToastMessage"), "Passed");
+        Assert.assertEquals("Category created successfully",webSteps.getText("ToastMessage"));
+        PropertyUtils.setProperty("Category_Name", categoryName);
     }
 
     @Test(priority = 2)
     public void searchCategory() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Categories Functionality", "<b>Search Category</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC02: Verify that the user can successfully search a category</b>");
+        extentReportManager.startTest("Category Functionality", "<b>Search Category</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can successfully search a category</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1- Login to the System" +
                 "<br>Step 2- Click Products " +
@@ -63,8 +65,8 @@ public class Category extends baseTest {
 
     @Test(priority = 3)
     public void editCategory() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Categories Functionality", "<b>Edit Category</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit a category</b>");
+        extentReportManager.startTest("Category Functionality", "<b>Edit Category</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can successfully edit a category</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1- Login to the System" +
                 "<br>Step 2- Click Products " +
@@ -78,9 +80,11 @@ public class Category extends baseTest {
         webSteps.type(PropertyUtils.getProperty("Category_Name"),"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         webSteps.click("Action1");
-        webSteps.type(webSteps.generateRandomCategoryName(),"Category_Name");
+        categoryName = webSteps.generateRandomCategoryName();
+        webSteps.type(categoryName,"Category_Name");
         webSteps.type("Testing_Edit Category Description","Category_Remark");
         webSteps.click("UpdateButton");
-        Assert.assertEquals("Category updated successfully",webSteps.getText("ToastMessage"), "Passed");
+        Assert.assertEquals("Category updated successfully",webSteps.getText("ToastMessage"));
+        PropertyUtils.setProperty("Category_Name", categoryName);
     }
 }

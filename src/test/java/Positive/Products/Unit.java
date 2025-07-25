@@ -27,8 +27,8 @@ public class Unit extends baseTest {
 
     @Test(priority = 1)
     public void addUnit() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Units Functionality", "<b>Add Unit</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC01: Verify that the user can successfully add an unit</b>");
+        extentReportManager.startTest("Unit Functionality", "<b>Add Unit</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can successfully add an unit</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1- Login to the System" +
                 "<br>Step 2- Click Products " +
@@ -38,11 +38,41 @@ public class Unit extends baseTest {
                 "<br>Step 6- Click 'Save' Button"
         );
         webSteps.click("ClickAddNewUnit");
-        webSteps.type(webSteps.generateRandomUnitName(),"Unit_Name");
-        webSteps.type(webSteps.generateRandomUnitShortName(),"Short_Name");
+        unitName = webSteps.generateRandomUnitName();
+        webSteps.type(unitName,"Unit_Name");
+        shortName = webSteps.generateRandomUnitShortName();
+        webSteps.type(shortName,"Short_Name");
         webSteps.click("SaveButton");
         webSteps.implicitWait("ToastMessage");
         Assert.assertEquals("Unit created successfully",webSteps.getText("ToastMessage"), "Passed");
+        PropertyUtils.setProperty("Unit_Name", unitName);
+        PropertyUtils.setProperty("Short_Name", shortName);
+    }
+
+    @Test(priority = 2)
+    public void addUnitWithoutDecimal() throws InterruptedException, AWTException {
+        extentReportManager.startTest("Unit Functionality", "<b>Add Unit with Allow Decimal</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can add a unit with the 'Allow Decimal' checkbox selected.</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
+                "<br>Step 1- Login to the System" +
+                "<br>Step 2- Click Products " +
+                "<br>Step 3- Click Units " +
+                "<br>Step 4- Click 'Add New Unit' Button" +
+                "<br>Step 5- Fill Details" +
+                "<br>Step 6- Click 'Allow Decimal' checkbox" +
+                "<br>Step 7- Click 'Save' Button"
+        );
+        webSteps.click("ClickAddNewUnit");
+        unitName = webSteps.generateRandomUnitName();
+        webSteps.type(unitName,"Unit_Name");
+        shortName = webSteps.generateRandomUnitShortName();
+        webSteps.type(shortName,"Short_Name");
+        webSteps.click("AllowDecimalCheckBox");
+        webSteps.click("SaveButton");
+        webSteps.implicitWait("ToastMessage");
+        Assert.assertEquals("Unit created successfully",webSteps.getText("ToastMessage"), "Passed");
+        PropertyUtils.setProperty("Unit_Name2", unitName);
+        PropertyUtils.setProperty("Short_Name2", shortName);
     }
 
     @DataProvider(name = "searchUnit")
@@ -52,11 +82,11 @@ public class Unit extends baseTest {
                 { "Short Name",2, PropertyUtils.getProperty("Short_Name")}
         };
     }
-    @Test(priority = 2, dataProvider = "searchUnit")
+    @Test(priority = 3, dataProvider = "searchUnit")
     public void searchUnit(String searchBy,int tableColumnIndex, String searchInput) throws InterruptedException, AWTException {
-        extentReportManager.startTest("Units Functionality", "<b>Search Unit</b>");
+        extentReportManager.startTest("Unit Functionality", "<b>Search Unit</b>");
         extentReportManager.testSteps(
-                "<b><font color='blue'>Test Case : </font>TC02: Verify that the user can successfully search an unit</b> " +
+                "<b><font color='blue'>Test Case : </font>Verify that the user can successfully search an unit</b> " +
                         "<br><b><font color='blue'>Test Steps : </font></b>" +
                         "<br>Step 1 - Login to the System" +
                         "<br>Step 2 - Click Products" +
@@ -72,10 +102,10 @@ public class Unit extends baseTest {
         Assert.assertEquals(actualResult, searchInput, "Search result does not match input value.");
     }
 
-    @Test(priority = 3)
+    @Test(priority = 4)
     public void editUnit() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Units Functionality", "<b>Edit Unit</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit an unit</b>");
+        extentReportManager.startTest("Unit Functionality", "<b>Edit Unit</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can successfully edit an unit</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1- Login to the System" +
                 "<br>Step 2- Click Products " +
@@ -85,14 +115,17 @@ public class Unit extends baseTest {
                 "<br>Step 6 - Make the necessary changes" +
                 "<br>Step 7 - Click Update"
         );
-        webSteps.passValue("Short Name","SearchBy_Dropdown");
-        webSteps.type(PropertyUtils.getProperty("Short_Name"),"SearchBy_SearchBar");
+        webSteps.passValue("Unit Name","SearchBy_Dropdown");
+        webSteps.type(PropertyUtils.getProperty("Unit_Name"),"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         webSteps.click("Action1");
-        webSteps.type(webSteps.generateRandomUnitName(),"Unit_Name");
-        webSteps.type(webSteps.generateRandomUnitShortName(),"Short_Name");
-        webSteps.click("AllowDecimalCheckBox");
+        unitName = webSteps.generateRandomUnitName();
+        webSteps.type(unitName,"Unit_Name");
+        shortName = webSteps.generateRandomUnitShortName();
+        webSteps.type(shortName,"Short_Name");
         webSteps.click("UpdateButton");
         Assert.assertEquals("Unit updated successfully",webSteps.getText("ToastMessage"), "Passed");
+        PropertyUtils.setProperty("Unit_Name1", unitName);
+        PropertyUtils.setProperty("Short_Name1", shortName);
     }
 }

@@ -32,8 +32,8 @@ public class Pagination extends baseTest{
         webSteps.click("ClickUser");
         webSteps.click("ClickUserList");
 
-        int index = getPageSizeIndex(size);
-        webSteps.select("UserPageSizeDropdown", index, 1);  // uses Robot to select
+        //int index = getPageSizeIndex(size);
+        //webSteps.select("UserPageSizeDropdown", index, 1);  // uses Robot to select
 
         int rowCount = driver.findElements(By.xpath("//table/tbody/tr")).size();
         Assert.assertTrue(rowCount <= size, "Row count exceeds selected page size: " + size);

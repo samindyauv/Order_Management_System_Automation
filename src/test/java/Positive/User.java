@@ -11,6 +11,11 @@ import java.awt.*;
 import java.io.IOException;
 
 public class User extends baseTest {
+    String userName;
+    String contactNo;
+    String email;
+    String address;
+
     @BeforeMethod
     public void setUp() throws InterruptedException, IOException {
         loadUrl();
@@ -33,15 +38,23 @@ public class User extends baseTest {
                 "<br>Step 6- Click 'Save' Button"
         );
         webSteps.click("ClickAddNewUserButton");
-        webSteps.type(webSteps.generateRandomUserName(),"User_Name");
+        userName = webSteps.generateRandomUserName();
+        webSteps.type(userName, "User_Name");
         webSteps.searchFromDropdown("Role_Name","User_Role");
-        webSteps.type(webSteps.generateRandomContactNumber(),"User_ContactNo");
-        webSteps.type(webSteps.generateRandomUserEmail(),"User_Email");
+        contactNo = webSteps.generateRandomContactNumber();
+        webSteps.type(contactNo,"User_ContactNo");
+        email = webSteps.generateRandomUserEmail();
+        webSteps.type(email,"User_Email");
         webSteps.type("Test@12345", "User_Password");
         webSteps.type("Test@12345", "User_ConfirmPassword");
-        webSteps.type(webSteps.generateRandomUserAddress(),"User_Address");
+        address = webSteps.generateRandomUserAddress();
+        webSteps.type(address,"User_Address");
         webSteps.click("SaveButton");
-        Assert.assertEquals("User created successfully",webSteps.getText("ToastMessage"), "Passed");
+        Assert.assertEquals("User created successfully",webSteps.getText("ToastMessage"));
+        PropertyUtils.setProperty("User_Name", userName);
+        PropertyUtils.setProperty("User_ContactNo", contactNo);
+        PropertyUtils.setProperty("User_Email", email);
+        PropertyUtils.setProperty("User_Address", address);
     }
 
     @DataProvider(name = "userSearchData")
@@ -49,8 +62,8 @@ public class User extends baseTest {
         return new Object[][]{
                 {"User", PropertyUtils.getProperty("User_Name"), 1},
                 {"Role", PropertyUtils.getProperty("Role_Name"), 2},
+                {"Contact No","+94 "+PropertyUtils.getProperty("User_ContactNo"),3},
                 {"Email",PropertyUtils.getProperty("User_Email"), 4},
-                {"Address",PropertyUtils.getProperty("User_Address"), 5}
         };
     }
 
@@ -90,13 +103,21 @@ public class User extends baseTest {
         webSteps.type(PropertyUtils.getProperty("User_Name"),"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         webSteps.click("Action1");
-        webSteps.type(webSteps.generateRandomUserName(),"User_Name");
+        userName = webSteps.generateRandomUserName();
+        webSteps.type(userName, "User_Name");
         webSteps.searchFromDropdown("Role_Name","User_Role");
-        webSteps.type(webSteps.generateRandomContactNumber(),"User_ContactNo");
-        webSteps.type(webSteps.generateRandomUserEmail(),"User_Email");
-        webSteps.type(webSteps.generateRandomUserAddress(),"User_Address");
+        contactNo = webSteps.generateRandomContactNumber();
+        webSteps.type(contactNo,"User_ContactNo");
+        email = webSteps.generateRandomUserEmail();
+        webSteps.type(email,"User_Email");
+        address = webSteps.generateRandomUserAddress();
+        webSteps.type(address,"User_Address");
         webSteps.click("UpdateButton");
-        Assert.assertEquals("User updated successfully",webSteps.getText("ToastMessage"), "Passed");
+        Assert.assertEquals("User updated successfully",webSteps.getText("ToastMessage"));
+        PropertyUtils.setProperty("User_Name", userName);
+        PropertyUtils.setProperty("User_ContactNo", contactNo);
+        PropertyUtils.setProperty("User_Email", email);
+        PropertyUtils.setProperty("User_Address", address);
     }
 
     @Test(priority = 4)

@@ -24,8 +24,8 @@ public class Brand extends baseTest {
 
     @Test(priority = 1)
     public void addBrand() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Brands Functionality", "<b>Add Brand</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC01: Verify that the user can successfully add a brand</b>");
+        extentReportManager.startTest("Brand Functionality", "<b>Add Brand</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can successfully add a brand</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1- Login to the System" +
                 "<br>Step 2- Click Products " +
@@ -35,17 +35,19 @@ public class Brand extends baseTest {
                 "<br>Step 6- Click 'Save' Button"
         );
         webSteps.click("ClickAddNewBrand");
-        webSteps.type(webSteps.generateRandomBrandName(),"Brand_Name");
+        brandName = webSteps.generateRandomBrandName();
+        webSteps.type(brandName,"Brand_Name");
         webSteps.type("Testing_Brand Description","Brand_Remark");
         webSteps.click("SaveButton");
         webSteps.implicitWait("ToastMessage");
         Assert.assertEquals("Brand created successfully",webSteps.getText("ToastMessage"), "Passed");
+        PropertyUtils.setProperty("Brand_Name", brandName);
     }
 
     @Test(priority = 2)
     public void searchBrand() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Brands Functionality", "<b>Search Brand</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC02: Verify that the user can successfully search a brand</b>");
+        extentReportManager.startTest("Brand Functionality", "<b>Search Brand</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can successfully search a brand</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1- Login to the System" +
                 "<br>Step 2- Click Products " +
@@ -63,8 +65,8 @@ public class Brand extends baseTest {
 
     @Test(priority = 3)
     public void editBrand() throws InterruptedException, AWTException {
-        extentReportManager.startTest("Brands Functionality", "<b>Edit Brand</b>");
-        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>TC03: Verify that the user can successfully edit a brand</b>");
+        extentReportManager.startTest("Brand Functionality", "<b>Edit Brand</b>");
+        extentReportManager.testSteps("<b><font color='blue'>Test Case : </font>Verify that the user can successfully edit a brand</b>");
         extentReportManager.testSteps("<b><font color='blue'>Test Steps : </font></b>" +
                 "<br>Step 1- Login to the System" +
                 "<br>Step 2- Click Products " +
@@ -78,9 +80,11 @@ public class Brand extends baseTest {
         webSteps.type(PropertyUtils.getProperty("Brand_Name"),"SearchBy_SearchBar");
         webSteps.click("SearchBy_SearchButton");
         webSteps.click("Action1");
-        webSteps.type(webSteps.generateRandomBrandName(),"Brand_Name");
+        brandName = webSteps.generateRandomBrandName();
+        webSteps.type(brandName,"Brand_Name");
         webSteps.type("Testing_Edit Brand Description","Brand_Remark");
         webSteps.click("UpdateButton");
         Assert.assertEquals("Brand updated successfully",webSteps.getText("ToastMessage"), "Passed");
+        PropertyUtils.setProperty("Brand_Name", brandName);
     }
 }
