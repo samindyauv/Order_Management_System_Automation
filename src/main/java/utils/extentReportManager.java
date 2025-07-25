@@ -32,6 +32,9 @@ public class extentReportManager {
 
     public static void initReport() {
         if (extent == null) {
+            new File("test-output").mkdirs();
+            new File("test-output/screenshots").mkdirs();
+
             ExtentSparkReporter sparkReporter = new ExtentSparkReporter(REPORT_PATH);
             sparkReporter.config().setDocumentTitle("Automation Test Report");
             sparkReporter.config().getCss();
