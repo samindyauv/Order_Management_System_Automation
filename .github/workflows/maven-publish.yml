@@ -30,8 +30,8 @@ jobs:
       - name: ▶️ Run TestNG Suite - All.xml
         run: mvn clean test -DsuiteXmlFile=All.xml
 
-      - name: 📋 Verify report files
-        run: ls -R test-output
+      - name: 📋 List test-output folder contents (if any)
+        run: ls -l test-output || echo "test-output folder not found"
 
       - name: 📤 Upload TestNG HTML Report
         uses: actions/upload-artifact@v4
