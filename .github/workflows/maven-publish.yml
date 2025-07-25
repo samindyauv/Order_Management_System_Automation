@@ -13,11 +13,11 @@ jobs:
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v3
 
-      - name: ☕ Set up Java 17 (Eclipse Temurin)
+      - name: ☕ Set up Java 23 (Eclipse Temurin)
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '23'
 
       - name: 📦 Install Maven
         run: |
