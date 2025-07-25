@@ -10,28 +10,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⬇️ Checkout Repository
+      - name: "Checkout Repository"
         uses: actions/checkout@v3
 
-      - name: ☕ Set up Java (Temurin 23)
+      - name: "Set up Java (Temurin 23)"
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
+          distribution: temurin
           java-version: '23'
 
-      - name: 🧹 Clean previous test-output
+      - name: "Clean previous test-output"
         run: rm -rf test-output
 
-      - name: ▶️ Run TestNG Suite - All.xml
+      - name: "Run TestNG Suite - All.xml"
         run: mvn clean test -DsuiteXmlFile=All.xml
 
-      - name: 🧪 Debug: List contents of test-output
+      - name: "Debug: List contents of test-output"
         run: |
           echo "Listing contents of test-output directory:"
-          ls -R test-output || echo "❌ test-output folder not found"
-          cat test-output/ExtentReport.html || echo "❌ ExtentReport.html not found"
+          ls -R test-output || echo "test-output folder not found"
+          cat test-output/ExtentReport.html || echo "ExtentReport.html not found"
 
-      - name: 📤 Upload Extent Report and Screenshots
+      - name: "Upload Extent Report and Screenshots"
         if: always()
         uses: actions/upload-artifact@v4
         with:
