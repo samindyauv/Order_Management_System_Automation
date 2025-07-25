@@ -1,3 +1,10 @@
+name: Run TestNG Test Suite - Test.xml
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '00 7 * * *'  # 12:30 PM IST
+
 jobs:
   run-testng-tests:
     runs-on: ubuntu-latest
@@ -6,7 +13,7 @@ jobs:
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v3
 
-      - name: ☕ Set up Java (Eclipse Temurin 23)
+      - name: ☕ Set up Java (Eclipse Temurin 17)
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
@@ -22,6 +29,9 @@ jobs:
 
       - name: ▶️ Run TestNG Suite - All.xml
         run: mvn clean test -DsuiteXmlFile=All.xml
+
+      - name: 📋 Verify report files
+        run: ls -R test-output
 
       - name: 📤 Upload TestNG HTML Report
         uses: actions/upload-artifact@v4
